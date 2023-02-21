@@ -52,7 +52,7 @@ module.exports = {
     options.tableName = "Spots";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name : { [Op.in]: ["MC Hammer's Home", "Wayne Manor", "Witcher's House"] }
+      name : { [Op.in]: ["Walter White's House", "Joel Miller's Estate", "Kratos' Home"] }
     }, {})
   }
 };
