@@ -77,13 +77,14 @@ router.get('/:spotId', async (req, res) => {
         where: { spotId: spotId }
     });
 
+    let avgRating = (sumOfStars / reviewCount).toFixed(1);
+
     const spotImage = await SpotImage.findAll({
         where: { spotId: spotId },
         attributes: ['id', 'url', 'preview'],
 
     });
 
-    let avgRating = (sumOfStars / reviewCount).toFixed(1);
 
     const resDetails = details.toJSON();
     resDetails.numReviews = reviewCount;
@@ -137,5 +138,34 @@ router.post('/', async (req, res) => {
 });
 
 
+// add an image to a spot
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const { spotId } = req.params;
+    const { url } = req.body;
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        return res
+            .status(404)
+            .json({
+                message: "Spot couldn't be found",
+                statusCode: res.statusCode,
+            })
+    }
+
+    const newSpotImg = await SpotImage.create({
+        spotId: parseInt(spotId),
+        url: url,
+        preview: true,
+
+    });
+    res.json({
+        id: newSpotImg.id,
+        url: newSpotImg.url,
+        preview: newSpotImg.preview
+    });
+
+
+});
 
 module.exports = router;
