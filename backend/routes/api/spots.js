@@ -48,8 +48,8 @@ router.get('/current', requireAuth, async (req, res) => {
         else spots[i].previewImage = 'No Image Available'
 
     }
-
-    return res.json({ Spots: spots })
+    
+    return res.json({ Spots: spots, avgRating})
 });
 
 // get details of a spot from an id
@@ -93,5 +93,8 @@ router.get('/:spotId', async (req, res) => {
 
     return res.json(resDetails)
 });
+
+
+// 
 
 module.exports = router;
