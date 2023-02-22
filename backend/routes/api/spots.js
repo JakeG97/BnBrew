@@ -168,4 +168,61 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 });
 
+
+//edit a spot
+router.put('/:spotId', async (req, res) => {
+    const { spotId } = req.params;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        return res
+            .status(404)
+            .json({
+                "message": "Spot couldn't be found",
+                "statusCode": res.statusCode
+            });
+    };
+
+    try {
+        await spot.update({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        });
+        return res.json(spot);
+
+    } catch (error) {
+        res
+            .status(400)
+            .json({
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "address": "Street address is required",
+                    "city": "City is required",
+                    "state": "State is required",
+                    "country": "Country is required",
+                    "lat": "Latitude is not valid",
+                    "lng": "Longitude is not valid",
+                    "name": "Name must be less than 50 characters",
+                    "description": "Description is required",
+                    "price": "Price per day is required"
+                }
+            });
+    }
+});
+
+
+
+
+
+
+
 module.exports = router;
