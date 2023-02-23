@@ -14,43 +14,47 @@ router.get('/', async (req, res) => {
 });
 
 // get spots owned by current User
-router.get('/current', requireAuth, async (req, res) => {
-    const ownerId = req.user.id
-
-    const spots = await Spot.findAll({
+router.get("/", async (req, res) => {
+    const allSpots = await Spot.findAll();
+  
+    let spotObj;
+    for (let spot of allSpots) {
+      spotObj = spot.dataValues;
+      const reviews = await Review.findAll({
         where: {
-            ownerId: ownerId
+          spotId: spot.id,
         },
-
-    });
-
-    let avgRating;
-    for (let i = 0; i < spots.length; i++) {
-        const reviewCount = await Review.count({ where: { spotId: spots[i].id } })
-        const sumOfStars = await Review.sum('stars', {
-            where: { spotId: spots[i].id }
-        });
-
-        if (!sumOfStars) {
-            avgRating = 0;
-        } else {
-            avgRating = (sumOfStars / reviewCount).toFixed(1);
+      });
+  
+      let starReview = 0;
+      let count = 0;
+      let avg = 0;
+      if (!reviews.length) {
+        avg = 0;
+      } else {
+        for (let reviewObj of reviews) {
+          starReview += reviewObj.stars;
+          count++;
         }
-
-        spots[i].avgRating = avgRating;
-
-        const spotImage = await SpotImage.findOne({
-            where: { spotId: spots[i].id },
-            attributes: ['id', 'url', 'preview']
-        });
-
-        if (spotImage) spots[i].previewImage = spotImage.url;
-        else spots[i].previewImage = 'No Image Available'
-
+        avg = starReview / count;
+      }
+      spotObj.avgRating = avg;
+  
+      const spotImg = await SpotImage.findAll({
+        where: {
+          spotId: spot.id,
+        },
+      });
+  
+      let url;
+      for (let obj of spotImg) {
+        url = obj.url;
+      }
+      spotObj.previewImg = url;
     }
-    
-    return res.json({ Spots: spots, avgRating})
-});
+    spotObj = { Spots: allSpots };
+    res.status(200).json(spotObj);
+  });
 
 // get details of a spot from an id
 router.get('/:spotId', async (req, res) => {
@@ -250,7 +254,93 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 });
 
 
+// get all reviews by spot id
+router.get('/:spotId/reviews', async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId)
 
+    if(!spot) {
+        res.status(404)
+        return res.json({
+            message: 'Spot could not be found',
+            "statusCode": 404
+        })
+    }
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: [ 'id', 'firstName', 'lastName' ]
+            },
+            {
+                model: ReviewImage,
+                attributes: [ 'id', 'url' ]
+            }
+        ]
+    })
+
+    return res.json({ Reviews: reviews })
+})
+
+
+// create a review for a spot based on spot id
+router.post('/:spotId/reviews', requireAuth, async (req, res) => {
+    const { spotId } = req.params;
+    const spot = await Spot.findByPk(spotId);
+
+
+    if (!spot) {
+        return res
+            .status(404)
+            .json({
+                message: "Spot couldn't be found",
+                statusCode: 404
+            })
+    };
+
+    
+    const existingReview = await Review.findOne({
+        where: {
+            userId: req.user.id,
+            spotId: spotId
+        }
+    });
+    
+    if (existingReview) {
+        return res
+            .status(403)
+            .json({
+                message: "User already has a review for this spot",
+                statusCode: 403
+            });
+    };
+
+    try {
+        const newReview = await Review.create({
+            userId: req.user.id,
+            spotId: Number(spotId),
+            review: req.body.review,
+            stars: req.body.stars
+        });
+        return res.json(newReview)
+
+    } catch (error) {
+        return res
+            .status(400)
+            .json({
+                message: 'Validation error',
+                statusCode: 400,
+                errors: {
+                    review: 'Review text is required',
+                    stars: 'Stars must be an integer from 1 to 5'
+                }
+            });
+    };
+
+});
 
 
 
