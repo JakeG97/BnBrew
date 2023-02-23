@@ -144,5 +144,32 @@ router.put('/:reviewId', requireAuth, async (req, res) => {
 });
 
 
+// delete a review
+router.delete('/:reviewId', requireAuth, async (req, res) => {
+    const { reviewId } = req.params;
+    const deleteReview = await Review.findByPk(reviewId);
+    const userId = req.user.id;
+
+    if (!deleteReview) {
+        return res
+            .status(404)
+            .json({
+                message: "Review couldn't be found",
+                statusCode: res.statusCode
+            });
+    };
+
+    if (deleteReview.userId === userId) {
+        deleteReview.destroy();
+        return res.json({
+            message: "Successfully deleted",
+            statusCode: 200
+        });
+    } else {
+        return res.json({
+            message: "You are not the owner of this Review",
+        })
+    }
+});
 
 module.exports = router;
