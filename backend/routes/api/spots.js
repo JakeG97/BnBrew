@@ -14,43 +14,47 @@ router.get('/', async (req, res) => {
 });
 
 // get spots owned by current User
-router.get('/current', requireAuth, async (req, res) => {
-    const ownerId = req.user.id
-
-    const spots = await Spot.findAll({
+router.get("/", async (req, res) => {
+    const allSpots = await Spot.findAll();
+  
+    let spotObj;
+    for (let spot of allSpots) {
+      spotObj = spot.dataValues;
+      const reviews = await Review.findAll({
         where: {
-            ownerId: ownerId
+          spotId: spot.id,
         },
-
-    });
-
-    let avgRating;
-    for (let i = 0; i < spots.length; i++) {
-        const reviewCount = await Review.count({ where: { spotId: spots[i].id } })
-        const sumOfStars = await Review.sum('stars', {
-            where: { spotId: spots[i].id }
-        });
-
-        if (!sumOfStars) {
-            avgRating = 0;
-        } else {
-            avgRating = (sumOfStars / reviewCount).toFixed(1);
+      });
+  
+      let starReview = 0;
+      let count = 0;
+      let avg = 0;
+      if (!reviews.length) {
+        avg = 0;
+      } else {
+        for (let reviewObj of reviews) {
+          starReview += reviewObj.stars;
+          count++;
         }
-
-        spots[i].avgRating = avgRating;
-
-        const spotImage = await SpotImage.findOne({
-            where: { spotId: spots[i].id },
-            attributes: ['id', 'url', 'preview']
-        });
-
-        if (spotImage) spots[i].previewImage = spotImage.url;
-        else spots[i].previewImage = 'No Image Available'
-
+        avg = starReview / count;
+      }
+      spotObj.avgRating = avg;
+  
+      const spotImg = await SpotImage.findAll({
+        where: {
+          spotId: spot.id,
+        },
+      });
+  
+      let url;
+      for (let obj of spotImg) {
+        url = obj.url;
+      }
+      spotObj.previewImg = url;
     }
-    
-    return res.json({ Spots: spots, avgRating})
-});
+    spotObj = { Spots: allSpots };
+    res.status(200).json(spotObj);
+  });
 
 // get details of a spot from an id
 router.get('/:spotId', async (req, res) => {
