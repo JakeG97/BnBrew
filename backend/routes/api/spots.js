@@ -304,6 +304,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res) => {
             spotId: spotId
         }
     });
+    
     if (existingReview) {
         return res
             .status(403)
