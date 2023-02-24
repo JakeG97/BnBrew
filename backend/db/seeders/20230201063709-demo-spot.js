@@ -1,15 +1,14 @@
 'use strict';
-const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+options.tableName = 'Spots';
 
-/** @type {import('sequelize-cli').Migration} */
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
       ownerId: 1,
@@ -45,14 +44,13 @@ module.exports = {
       description: "A warm cabin with a roof tall enough to contain a giant with a rich estate full of fields of snow.",
       price: 20.00
     }
-    ])
+    ],
+    {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = "Spots";
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      name : { [Op.in]: ["Walter White's House", "Joel Miller's Estate", "Kratos' Home"] }
-    }, {})
-  }
+    return queryInterface.bulkDelete(options, null, {});
+  },
 };

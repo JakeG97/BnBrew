@@ -4,29 +4,30 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+options.tableName = "ReviewImages"
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
+  up: async  (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(options, [
       {
         reviewId: 1,
-        url: '<insertURL>',
-      },{
+        url: "www.thisphoto.com",
+      },
+      {
         reviewId: 2,
-        url: '<insertURL>',
-      },{
+        url: "www.thatphoto.com",
+      },
+      {
         reviewId: 3,
-        url: '<insertURL>',
-      }
-    ])
+        url: "www.otherphoto.com",
+      },
+    ],
+    {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'ReviewImages';
-    return queryInterface.bulkDelete(options, {
-      id : {[Op.in] : [1, 2, 3]}
-    }, {})
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options,null,{});
   }
 };
