@@ -1,14 +1,13 @@
 'use strict';
-const bcrypt = require("bcryptjs");
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+options.tableName = 'Bookings';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'Bookings';
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
@@ -28,14 +27,13 @@ module.exports = {
         startDate: "2023-03-03",
         endDate: "2023-03-07"
       }
-    ], {});
+    ], 
+    {}
+    );
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'Bookings';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      id: { [Op.in]: [1, 2, 3] }
-    }, {});
-  }
+    return queryInterface.bulkDelete(options, null, {});
+  },
 };
