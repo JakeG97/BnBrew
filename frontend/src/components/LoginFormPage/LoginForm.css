@@ -1,0 +1,14 @@
+.login-page {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    height: 40%;
+    width: 40%;
+    align-items: right;
+}
+
+.login-btn {
+    margin: 10px;
+    color: white;
+    border: solid;
+}
