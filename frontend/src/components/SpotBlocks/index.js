@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import './SpotBlocks.css'
 
 export default function SpotBlocks({spot}){
+
     return (
         <>
             {spot && (
@@ -21,7 +22,7 @@ export default function SpotBlocks({spot}){
                                 <div className="text">{spot?.name}</div>
                                 <div className="text">{spot?.description}</div>
                                 <div className="priceContainer">
-                                    <span className="price">{spot?.price}</span>
+                                    <span className="price">${spot?.price}</span>
                                 </div>
                             </div>
                         </Link>

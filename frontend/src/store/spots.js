@@ -1,11 +1,11 @@
-const READ = "spots/READ"
+const READ = "api/spots"
 
 
 
-const read = (spots) => {
+const read = (allSpots) => {
     return {
-        type: 'READ',
-        spots
+        type: READ,
+        payload: allSpots,
     };
 };
 
@@ -13,30 +13,28 @@ const read = (spots) => {
 
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
-    
-    const res = await fetch(`api/spots`);
+    const res = await fetch(`/api/spots`);
 
     if (res.ok) {
-        const spots = await res.json();
-        dispatch(read(spots.Spots));
+        const allSpots = await res.json();
+        dispatch(read(allSpots));
     }
 };
 
 
 
-const initialState = {};
+const initialState = { allSpots: [] };
 
 const spotReducer = (state = initialState, action) => {
     switch(action.type) {
-        case READ:
-            const allSpots = {};
-            action.spots.forEach((spot) => {
-                allSpots[spot.id] = spot;
-            });
-            return allSpots;
+        case READ: {
+            const newState = { ...state };
+            newState.allSpots = action.payload;
+            return newState;
+        }
         default:
             return state;
-    };
+    }
 };
 
 export default spotReducer;

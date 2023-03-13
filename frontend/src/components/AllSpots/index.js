@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
-import SpotBlocks from "../SpotBlocks/SpotBlocks";
+import SpotBlocks from "../SpotBlocks";
 import "./allSpots.css"
 
 const SpotComponent = () => {
@@ -11,20 +11,23 @@ const SpotComponent = () => {
         dispatch(getAllSpots());
     }, [dispatch])
 
-    const spots = useSelector((state) => Object.values(state.spots));
+    const spots = useSelector(state => state.spots.allSpots);
 
-    if (!spots) return null;
+    const spotsList = Object.values(spots)
 
-    const spotsList = spots.map((spot) => (
-        <div key={spot.id}>
-            <SpotBlocks key={spot.id} spot={spot} />
-        </div>
-    ));
+    console.log('spots:', spotsList)
 
     return (
-        <div>
-            {spotsList}
-        </div>
+        <>
+            <nav className="blocks-section">
+                    {spotsList.map(spot => {
+                        if (!spot) return null;
+                        return (
+                            <SpotBlocks spot={spot} />
+                        )})
+                    }
+            </nav>
+        </>
     );
 }
 

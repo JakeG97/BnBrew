@@ -1,0 +1,29 @@
+.blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .spot {
+    width: 30%;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .spot img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .spot h3 {
+    margin: 10px;
+  }
+  
+  .spot p {
+    margin: 10px;
+  }
+  
