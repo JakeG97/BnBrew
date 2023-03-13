@@ -19,7 +19,7 @@ function LoginFormModal() {
       .catch(
         async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) setErrors(Object.values(data.errors));
         }
       );
   };
@@ -27,10 +27,10 @@ function LoginFormModal() {
   return (
     <div id="login-container">
       <h1>Log In</h1>
-      <form id='login-form' onSubmit={handleSubmit}>
+      <form id='login' onSubmit={handleSubmit}>
         <ul>
-          {Object.keys(errors).map((key) => (
-            <li key={key}>{errors[key]}</li>
+          {errors.map((error, idx) => (
+            <li key={idx}>{error}</li>
           ))}
         </ul>
         <label>
