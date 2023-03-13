@@ -25,9 +25,9 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div id="login-container">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form id='login-form' onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
@@ -51,9 +51,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button id='loginButton' type="submit">Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

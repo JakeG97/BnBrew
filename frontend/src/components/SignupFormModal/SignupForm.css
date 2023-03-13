@@ -1,0 +1,11 @@
+#signup-container {
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-color: grey;
+    border-radius: 20px;
+}
