@@ -18,7 +18,7 @@ const readOne = (spotDetails, spotId) => ({
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
     
-    const res = await fetch(`api/spots`);
+    const res = await fetch(`/api/spots`);
 
     if (res.ok) {
         const spots = await res.json();
