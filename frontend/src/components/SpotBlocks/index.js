@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import './SpotBlocks.css'
 
 export default function SpotBlocks({spot}){
-
     return (
         <>
             {spot && (

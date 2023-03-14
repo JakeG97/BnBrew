@@ -11,23 +11,20 @@ const SpotComponent = () => {
         dispatch(getAllSpots());
     }, [dispatch])
 
-    const spots = useSelector(state => state.spots.allSpots);
+    const spots = useSelector((state) => Object.values(state.spots));
 
-    const spotsList = Object.values(spots)
+    if (!spots) return null;
 
-    console.log('spots:', spotsList)
+    const spotsList = spots.map((spot) => (
+        <div key={spot.id}>
+            <SpotBlocks key={spot.id} spot={spot} />
+        </div>
+    ));
 
     return (
-        <>
-            <nav className="blocks-section">
-                    {spotsList.map(spot => {
-                        if (!spot) return null;
-                        return (
-                            <SpotBlocks spot={spot} />
-                        )})
-                    }
-            </nav>
-        </>
+        <div>
+            {spotsList}
+        </div>
     );
 }
 
