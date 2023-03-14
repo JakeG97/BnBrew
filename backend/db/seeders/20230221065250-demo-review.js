@@ -28,11 +28,12 @@ module.exports = {
         review: "This place was horrible. I swear a dragon was flying above the place, every other minute.",
         stars: 3,
       }
-    ]);
+    ], options);
   },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Reviews';
+    const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       id : {[Op.in] : [1, 2, 3]}
     }, {})

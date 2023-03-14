@@ -24,11 +24,12 @@ module.exports = {
         url: "https://static.wikia.nocookie.net/godofwar/images/0/0f/KratosCabin01.jpg/revision/latest/scale-to-width-down/1000?cb=20200810074556",
         preview: true,
       }
-    ])
+    ], options)
   },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'SpotImages';
+    const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       id : {[Op.in] : [1, 2, 3]}
     }, {})
