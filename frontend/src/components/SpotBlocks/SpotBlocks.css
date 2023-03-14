@@ -26,7 +26,7 @@
     
 }
 
-.detailText{
+.text{
     color: gray;
 }
 
@@ -42,11 +42,7 @@
     justify-content: space-between;
 }
 
-/* #rating{
-   font-size: 14px;
-} */
-
-.rating-container {
+.ratings-container {
     display: flex;
     align-items: center;
   }
