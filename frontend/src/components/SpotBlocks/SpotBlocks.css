@@ -1,0 +1,65 @@
+.blocks-container {
+    margin: 4em 2em 4em 2em;
+}
+
+.SpotImages{
+    width: 320px;
+    height: 300px;
+    border-radius: 30px;
+    padding: 12px;
+}
+
+.spot-content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 1em;
+    font-weight: bold
+}
+
+.spot-details{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-left: 1em;
+    margin-top: 3px;
+    
+}
+
+.detailText{
+    color: gray;
+}
+
+.price-container{
+    margin-top: .5em;
+}
+
+.spot-details-container{
+    margin-top: -10px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* #rating{
+   font-size: 14px;
+} */
+
+.rating-container {
+    display: flex;
+    align-items: center;
+  }
+
+.link{
+   display: flex;
+   flex-direction: column;
+   text-decoration: none;
+   color: black;
+}
+
+
+.price{
+    margin-top:10px;
+    font-weight: bold;
+}

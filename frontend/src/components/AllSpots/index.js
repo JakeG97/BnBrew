@@ -22,9 +22,11 @@ const SpotComponent = () => {
     ));
 
     return (
-        <div>
+    <div className="blocks-container">
+        <div className="blocks">
             {spotsList}
         </div>
+    </div>
     );
 }
 
