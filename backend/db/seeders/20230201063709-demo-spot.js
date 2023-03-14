@@ -44,7 +44,7 @@ module.exports = {
       description: "A warm cabin with a roof tall enough to contain a giant with a rich estate full of fields of snow.",
       price: 20.00
     }
-    ])
+    ], options)
   },
 
   down: async (queryInterface, Sequelize) => {

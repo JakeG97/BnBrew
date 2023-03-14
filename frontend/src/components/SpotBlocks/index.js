@@ -9,7 +9,7 @@ export default function SpotBlocks({spot}){
                     <div className="SpotImages" key={spot?.id}>
                         <Link className="link" to={`/spots/${spot?.id}`}>
                             <div>
-                                <img className="SpotImages" src={spot.previewImage} alt="brewery"/>
+                                <img className="SpotImages" src={spot.previewImg} alt="brewery"/>
                             </div>
                             <div className="spotDetailsContainer">
                                 <div className="spotContent">
@@ -21,7 +21,7 @@ export default function SpotBlocks({spot}){
                                 <div className="text">{spot?.name}</div>
                                 <div className="text">{spot?.description}</div>
                                 <div className="priceContainer">
-                                    <span className="price">{spot?.price}</span>
+                                    <span className="price">${spot?.price}</span>
                                 </div>
                             </div>
                         </Link>

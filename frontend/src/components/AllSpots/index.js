@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
-import SpotBlocks from "../SpotBlocks/SpotBlocks";
+import SpotBlocks from "../SpotBlocks";
 import "./allSpots.css"
 
 const SpotComponent = () => {
