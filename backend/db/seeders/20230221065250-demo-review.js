@@ -13,20 +13,20 @@ module.exports = {
       {
         spotId: 1,
         userId: 1,
-        review: "Very hot but fairly nice house. Also found a nice amount of cash in the basement which was left for some guy named Ted?",
+        review: "Beautiful beach setting with beer to help compliment the warm weather. The outdoor patio was awesome!",
         stars: 5,
       },
       {
         spotId: 2,
         userId: 2,
-        review: "Super cozy house, with a lot of handcarved wood figurines. Could really feel the country breathing through.",
-        stars: 1,
+        review: "A little small of a setting for my taste but some of the best IPA's out there.",
+        stars: 4,
       },
       {
         spotId: 3,
         userId: 2,
-        review: "This place was horrible. I swear a dragon was flying above the place, every other minute.",
-        stars: 3,
+        review: "If you like Hazy IPA's this place is awesome... I hate Hazy IPA's..",
+        stars: 2,
       }
     ], options);
   },

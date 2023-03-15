@@ -21,7 +21,7 @@ export default function SpotBlocks({spot}){
                             </div>
                             <div className="spot-details">
                                 <div className="text">{spot?.name}</div>
-                                <div className="text">{spot?.description}</div>
+                                {/* <div className="text">{spot?.description}</div> */}
                                 <div className="price-container">
                                     <span className="price">${spot?.price}{" "}night</span>
                                 </div>
