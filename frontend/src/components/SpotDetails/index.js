@@ -17,27 +17,29 @@ const SpotDetails = () => {
     }, [dispatch, spotId]);
 
     return (
-        <div key={spot} className="DivHead">
+        <div key={spot} className="div-head">
             <div>
                 <h1 className="spot-name">{spot?.name}</h1>
-                <h4 id="city-state" className="fas fa-solid fa-star">
-                {" "}
-                {spot?.avgRating}{" "}
-                {spot?.city},{" "}{spot?.state}
+                <h4 className="city-state">
+                    {" "}{spot?.city},{" "}{spot?.state}
                 </h4>
+                <div className="image-container" key={spot?.id}>
                 <div>
-                {spot && spot.SpotImages && spot.SpotImages.map((image) => {
+                    {spot.SpotImages && spot.SpotImages.map((image) => {
                         return (
                             <div key={image.id}>
-                                <img  className="spotImage" src={spot.previewImg} alt="brewery" />
+                                <img  className="spot-image" src={image.url} alt="brewery" />
                             </div>
                         );
                     })}
                 </div>
+                </div>
+                <h4 className="owner-name">
+                    Hosted by {spot?.Owner?.firstName}
+                </h4>
             </div>
             <div className="information-container">
                 <div className="text">
-                    {/* <div className="hostName">Hosted By: {spot.Owner.firstName}</div> */}
                     <div className="spot-description"> Description: {spot?.description}</div>
                 </div>
                 <div className="review-block">
@@ -52,7 +54,7 @@ const SpotDetails = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default SpotDetails;

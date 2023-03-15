@@ -1,27 +1,28 @@
 .spotName{
     display: flex;
     align-items: center;
-    margin-left: 1em;
+    margin-right: 1em;
 }
 
-#city-state{
+.city-state{
     display: flex;
     align-items: center;
     margin-left: 1em;
 }
 
-.spotImage{
-    width: 1000px;
-    height: 600px;
+/* .spot-image {
+    width: 45em;
+    height: 30em;
     border-radius: 15px;
     display: flex;
-    
-}
+} */
 
-.DivHead {
+
+.div-head {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-left: 1em;
 }
 
 .information-container{
@@ -54,14 +55,14 @@
     width: 720px;
 }
 
-
 .spot-description{
     font-size: 16px;
     color: #000000Bf;
     border-bottom:  1px solid lightgray;
     padding-bottom: 15px;
     margin-left: 20px;
-   margin-top: 5px;
+    margin-top: 5px;
+    width: 40em;
 }
 
 .actual-price{

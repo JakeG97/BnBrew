@@ -8,10 +8,9 @@ const read = (spots) => ({
     spots
 });
 
-const readOne = (spotDetails, spotId) => ({
+const readOne = (spot) => ({
     type: READ_ONE,
-    spotDetails,
-    spotId
+    spot
 })
 
 
@@ -39,29 +38,27 @@ export const getSpotDetails = (spotId) => async dispatch => {
 
 
 
-const initialState = {
-    allSpots: {},
-    oneSpot: {}
-};
+const initialState = {};
 
 const spotReducer = (state = initialState, action) => {
     let newState;
     switch(action.type) {
+
         case READ_SPOTS:
             newState = {...state};
             const allSpots = {};
             action.spots.Spots.forEach((spot) => {
                 allSpots[spot.id] = spot;
             });
+
             newState.allSpots = allSpots
             return allSpots;
-        case READ_ONE:
-            let oneSpot = { ...state };
-            oneSpot = { ...action.spotDetails }
-            return {
-                ...state,
-                oneSpot: { ...oneSpot }
-            }
+            
+        case READ_ONE: {
+            const oneSpot = { ...state };
+            oneSpot[action.spot.id] = action.spot;
+            return oneSpot
+            };
         default:
             return state;
     };
