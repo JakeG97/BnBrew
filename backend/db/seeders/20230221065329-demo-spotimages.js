@@ -12,16 +12,16 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "https://na.rdcpix.com/625946635/a545dc497c1d4e1385851ca5e12f5a14w-c0rd-w832_h468_r4_q80.webp",
+        url: "https://pv-magazine-usa.com/wp-content/uploads/sites/2/2021/08/Exterior-Beer-Garden-E-DSC8829-1200x801.jpeg",
         preview: true,
       },
       {
         spotId: 2,
-        url: "https://static1.dualshockersimages.com/wordpress/wp-content/uploads/2021/11/last-of-us.jpg",
+        url: "https://brewpublic.com/wp-content/uploads/2018/08/The-Boneyard-Pub-in-Bend-Oregon.-photo-by-Cat-Stelzer.jpg",
         preview: true,
       },{
         spotId: 3,
-        url: "https://static.wikia.nocookie.net/godofwar/images/0/0f/KratosCabin01.jpg/revision/latest/scale-to-width-down/1000?cb=20200810074556",
+        url: "https://dzz2p2kq5g45d.cloudfront.net/wp-content/uploads/2020/05/16113959/img-03.jpg",
         preview: true,
       }
     ], options)

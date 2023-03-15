@@ -12,13 +12,13 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         reviewId: 1,
-        url: '<insertURL>',
+        url: 'https://lagunitas.com/wp-content/uploads/2022/06/MicrosoftTeams-image-17-1024x683-3.jpg',
       },{
         reviewId: 2,
-        url: '<insertURL>',
+        url: 'https://brewpublic.com/wp-content/uploads/2018/08/Outdoor-seating-at-the-Boneyard-Pub-in-Bend-Oregon.-photo-by-Cat-Stelzer.jpg',
       },{
         reviewId: 3,
-        url: '<insertURL>',
+        url: 'https://s.hdnux.com/photos/71/15/52/14998173/17/rawImage.jpg',
       }
     ], options)
   },

@@ -12,37 +12,37 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
       ownerId: 1,
-      address: "308 Negra Arroyo Lane",
-      city: "Albuquerque",
-      state: "New Mexico",
+      address: "1280 N McDowell Blvd",
+      city: "Petaluma",
+      state: "California",
       country: "USA",
-      lat: 106.6504,
-      lng: 35.0844,
-      name: "Walter White's House",
-      description: "Former Chemist teacher turned criminal's original house.",
-      price: 900000.00
+      lat: 122.6627,
+      lng: 38.2721,
+      name: "Lagunitas Brewing Company",
+      description: "The Lagunitas Brewing Company, founded in 1993 in Lagunitas, California, is a subsidiary of Heineken International.",
+      price: 8.00
     },{
       ownerId: 2,
-      address: "50 Glenwood St.",
-      city: "Jackson",
-      state: "Wyoming",
+      address: "37 Division Street",
+      city: "Bend",
+      state: "Oregon",
       country: "USA",
-      lat: 110.7624,
-      lng: 43.4799,
-      name: "Joel Miller's Estate",
-      description: "Cozy, farm house with a history of being a safe haven in another time.",
-      price: 1200000.00
+      lat: 121.3081,
+      lng: 44.0540,
+      name: "Boneyard Pub",
+      description: "No-nonsense neighborhood brewery offering a large assortment of craft beers to go.",
+      price: 9.00
     },{
       ownerId: 3,
-      address: "12 UpperWild Woods",
-      city: "Midgard",
-      state: "World Tree",
-      country: "Scandinavia",
-      lat: 12.3402,
-      lng: 62.2786,
-      name: "Kratos' Home",
-      description: "A warm cabin with a roof tall enough to contain a giant with a rich estate full of fields of snow.",
-      price: 20.00
+      address: "1805 Capitol Ave",
+      city: "Berkley",
+      state: "California",
+      country: "USA",
+      lat: 122.3023,
+      lng: 37.8813,
+      name: "Fieldwork Brewing Company",
+      description: "Brewpub with a variety of seasonal house beer blends, in an industrial setting.",
+      price: 12.00
     }
     ], options)
   },
@@ -51,7 +51,7 @@ module.exports = {
     options.tableName = "Spots";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name : { [Op.in]: ["Walter White's House", "Joel Miller's Estate", "Kratos' Home"] }
+      name : { [Op.in]: ["Lagunitas Brewing Company", "Boneyard Pub", "Fieldwork Brewing Company"] }
     }, {})
   }
 };

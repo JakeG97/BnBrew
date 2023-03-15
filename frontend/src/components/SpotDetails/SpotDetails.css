@@ -1,28 +1,66 @@
+.div-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 1em;
+}
+
 .spotName{
     display: flex;
     align-items: center;
-    margin-left: 1em;
+    margin-right: 1em;
 }
 
-#city-state{
+.city-state{
     display: flex;
     align-items: center;
     margin-left: 1em;
 }
 
-.spotImage{
-    width: 1000px;
-    height: 600px;
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 140em;
+    margin: 0 auto;
+}
+
+.spot-image-0 {
+    width: 40em;
+    height: 30em;
     border-radius: 15px;
-    display: flex;
-    
+    flex-basis: 50%;
 }
 
-.DivHead {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.spot-image-1 {
+    width: 20em;
+    height: 15em;
+    border-radius: 15px;
+    flex-basis: 25%;
 }
+
+.spot-image-2 {
+    width: 20em;
+    height: 15em;
+    border-radius: 15px;
+    flex-basis: 25%;
+}
+
+.spot-image-3 {
+    width: 20em;
+    height: 15em;
+    border-radius: 15px;
+    flex-basis: 25%;
+}
+
+.spot-image-4 {
+    width: 20em;
+    height: 15em;
+    border-radius: 15px;
+    flex-basis: 25%;
+}
+
 
 .information-container{
     display: flex;
@@ -54,14 +92,17 @@
     width: 720px;
 }
 
-
 .spot-description{
     font-size: 16px;
-    color: #000000Bf;
-    border-bottom:  1px solid lightgray;
+    border-bottom:  1px solid gray;
     padding-bottom: 15px;
-    margin-left: 20px;
-   margin-top: 5px;
+    margin-left: 1em;
+    margin-top: 1em;
+    width: 40em;
+}
+
+.owner-name{
+    margin-left: 1em; 
 }
 
 .actual-price{
