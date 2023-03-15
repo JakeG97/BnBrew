@@ -2,12 +2,10 @@
 
 const READ = "reviews/READ"
 
-const read = reviews => {
-    return {
+const read = reviews => ({
         type: READ,
         reviews
-    }
-}
+})
 
 
 export const getAllReviews = (spotId) => async dispatch => {
