@@ -4,6 +4,7 @@ const READ_SPOTS = "spots/READ_SPOTS";
 const READ_ONE = "spots/READ_ONE";
 const CREATE = "spots/CREATE";
 const DELETE = "spots/DELETE";
+const UPDATE = "spots/UPDATE";
 
 
 
@@ -24,8 +25,13 @@ const createSpot = (spotlist) => ({
 
 const deleteSpot = (spotlist) => ({
     type: DELETE,
-    spotlist,
+    spotlist
 });
+
+const updateSpot = (spotlist) => ({
+    type: UPDATE,
+    spotlist
+})
 
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
@@ -109,6 +115,21 @@ export const removeSpot = (spotId) => async (dispatch) => {
     }
 };
 
+// edit a spot
+export const editSpot = (payload) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${payload.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+        const updatedSpot = await res.json();
+        dispatch(updateSpot(updatedSpot));
+        return updatedSpot;
+    }
+};
+
 
 const initialState = {};
 
@@ -141,6 +162,21 @@ const spotReducer = (state = initialState, action) => {
             const deleteState = { ...state };
             delete removeSpot[action.spotlist];
             return deleteState;
+
+        case UPDATE:
+            if(!state[action.spotlist.id]) {
+                const newState = { ...state, [action.spotlist.id]: action.spotlist };
+                const spotList = newState.spotlist.map((id) => newState[id]);
+                spotList.push(action.spotlist);
+                newState.spotlist = spotList;
+                return newState
+            } return {
+                ...state,
+                [action.spotlist.id]: {
+                    ...state[action.spotlist.id],
+                    ...action.spotlist,
+                },
+            };
 
         default:
             return state;

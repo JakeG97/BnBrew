@@ -32,7 +32,7 @@ const CreateSpotForm = () => {
         if(!description) errors.push("Description is required");
         if(description.length < 30) errors.push("Desctiption needs a minimum of 30 characters")
         if(!name) errors.push("Name is required");
-        if(name.length > 26 ) errors.push("");
+        if(name.length > 50 ) errors.push("Name exceeds character limit");
         if(!price) errors.push("Price is required");
         if(isNaN(price)) errors.push("Price needs to be a number");
         if (!image.endsWith(".jpg") &&
