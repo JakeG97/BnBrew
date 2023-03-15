@@ -1,8 +1,9 @@
 import { csrfFetch } from "./csrf";
 
-const READ_SPOTS = "spots/READ_SPOTS"
-const READ_ONE = "spots/READ_ONE"
-const CREATE = "spots/CREATE"
+const READ_SPOTS = "spots/READ_SPOTS";
+const READ_ONE = "spots/READ_ONE";
+const CREATE = "spots/CREATE";
+const DELETE = "spots/DELETE";
 
 
 
@@ -21,6 +22,10 @@ const createSpot = (spotlist) => ({
     spotlist
 });
 
+const deleteSpot = (spotlist) => ({
+    type: DELETE,
+    spotlist,
+});
 
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
@@ -74,7 +79,7 @@ export const addSpot = (payload) => async (dispatch) => {
     });
 
     if (res.ok) {
-        const data = await Response.json();
+        const data = await res.json();
         const img = await csrfFetch(`/api/spots/${data.id}/images`, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
@@ -92,6 +97,17 @@ export const addSpot = (payload) => async (dispatch) => {
     }
 };
 
+// delete a spot
+export const removeSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE",
+    });
+
+    if (res.ok) {
+        dispatch(deleteSpot(spotId));
+        return null;
+    }
+};
 
 
 const initialState = {};
@@ -120,6 +136,11 @@ const spotReducer = (state = initialState, action) => {
             newState = { ...state };
             newState[action.spotlist.id] = action.spotlist;
             return newState;
+
+        case DELETE:
+            const deleteState = { ...state };
+            delete removeSpot[action.spotlist];
+            return deleteState;
 
         default:
             return state;

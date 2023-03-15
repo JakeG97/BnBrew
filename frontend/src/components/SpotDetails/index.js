@@ -1,24 +1,34 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { getSpotDetails } from "../../store/spots";
 import "./SpotDetails.css"
 import Reviews from "../ReviewForm";
 import { getAllReviews } from "../../store/reviews";
-
+import { removeSpot } from "../../store/spots";
 
 
 const SpotDetails = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const spot = useSelector((state) => state.spots[spotId]);
     const review = useSelector((state) => state.reviews);
+    const user = useSelector((state) => state.session?.user)
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        await dispatch(removeSpot(spotId));
+        history.push("/")
+    };
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId));
         dispatch(getAllReviews(spotId))
     }, [dispatch, spotId]);
+
+    const userOwner = (user && user.id === spot?.ownerId);
 
     return (
         <div key={spot} className="div-head">
@@ -53,6 +63,11 @@ const SpotDetails = () => {
                             {" "}: {spot?.avgRating}
                         </div>
                     </div>
+                {userOwner && (
+                    <div key={spot} className="delete-button-container">
+                        <button className="delete-button" onClick={(e) => handleDelete(e)}>Delete Your Spot</button>
+                    </div>
+                )}
                 </div>
                 <div className="reviewArea">
                     <Reviews key={review} review={review} />
