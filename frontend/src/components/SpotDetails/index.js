@@ -24,15 +24,13 @@ const SpotDetails = () => {
                     {" "}{spot?.city},{" "}{spot?.state}
                 </h4>
                 <div className="image-container" key={spot?.id}>
-                <div>
-                    {spot.SpotImages && spot.SpotImages.map((image) => {
+                    {spot.SpotImages && spot.SpotImages.map((image, index) => {
                         return (
                             <div key={image.id}>
-                                <img  className="spot-image" src={image.url} alt="brewery" />
+                                <img className={`spot-image-${index}`} src={image.url} alt="brewery" />
                             </div>
                         );
                     })}
-                </div>
                 </div>
                 <h4 className="owner-name">
                     Hosted by {spot?.Owner?.firstName}
