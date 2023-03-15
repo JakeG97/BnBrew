@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { getSpotDetails } from "../../store/spots";
 import "./SpotDetails.css"
+import Reviews from "../ReviewForm";
 
 
 
