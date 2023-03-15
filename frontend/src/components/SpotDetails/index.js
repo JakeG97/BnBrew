@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { getSpotDetails } from "../../store/spots";
 import "./SpotDetails.css"
 import Reviews from "../ReviewForm";
+import { getAllReviews } from "../../store/reviews";
 
 
 
@@ -12,9 +13,11 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
 
     const spot = useSelector((state) => state.spots[spotId]);
+    const review = useSelector((state) => state.reviews);
 
     useEffect(() => {
         dispatch(getSpotDetails(spotId));
+        dispatch(getAllReviews(spotId))
     }, [dispatch, spotId]);
 
     return (
@@ -50,6 +53,9 @@ const SpotDetails = () => {
                             {" "}: {spot?.avgRating}
                         </div>
                     </div>
+                </div>
+                <div className="reviewArea">
+                    <Reviews key={review} review={review} />
                 </div>
             </div>
         </div>
