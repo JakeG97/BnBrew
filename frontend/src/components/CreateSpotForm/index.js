@@ -86,52 +86,13 @@ const CreateSpotForm = () => {
           <form onSubmit={handleSubmit}>
             {!user && <h1 className="signin-error">Please Sign In</h1>}
             <div className="header">
-              <h1>Create a Spot</h1>
+                <h1 className="heading">Create a Spot</h1>
+                <h2 className="sub-heading">Where's your place located?</h2>
+                <h4 className="res-heading">Guests will only get an exact address once they've booked a reservation.</h4>
             </div>
             <div className="input-container">
-              <div className="create-input">
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Address"
-                  value={address}
-                  onChange={updateAddress}
-                />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Address")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
-              </div>
-              <div className="create-input">
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="City"
-                  value={city}
-                  onChange={updateCity}
-                />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("City")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
-              </div>
-              <div className="create-input">
-                <input
-                  className="inputs"
-                  type="text"
-                  placeholder="State"
-                  value={state}
-                  onChange={updateState}
-                />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("State")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
-              </div>
-              <div className="create-input">
+            <div className="create-input">
+                <label id="input-labels">Country</label>
                 <input
                   className="inputs"
                   type="text"
@@ -146,24 +107,77 @@ const CreateSpotForm = () => {
                 })}
               </div>
               <div className="create-input">
+                <label id="input-labels">Address</label>
                 <input
                   className="inputs"
                   type="text"
-                  placeholder="Description"
-                  value={description}
-                  onChange={updateDescription}
+                  placeholder="Address"
+                  value={address}
+                  onChange={updateAddress}
                 />
                 {ValidationErrors.map((error) => {
-                  if (error.includes("Description")) {
+                  if (error.includes("Address")) {
                     return <div className="error-text">{error}</div>;
                   }
                 })}
               </div>
               <div className="create-input">
+                <label id="input-labels">City</label>
                 <input
                   className="inputs"
                   type="text"
-                  placeholder="Name"
+                  placeholder="City"
+                  value={city}
+                  onChange={updateCity}
+                />
+                {ValidationErrors.map((error) => {
+                  if (error.includes("City")) {
+                    return <div className="error-text">{error}</div>;
+                  }
+                })}
+              </div>
+              <div className="create-input">
+                <label id="input-labels">State</label>
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="State"
+                  value={state}
+                  onChange={updateState}
+                />
+                {ValidationErrors.map((error) => {
+                  if (error.includes("State")) {
+                    return <div className="error-text">{error}</div>;
+                  }
+                })}
+              </div>
+              <div className="create-input">
+                <label id="desc-header">Describe your place to guests</label>
+                <label id="desc-label">
+                Mention the best features of your space, any special drinks or ales, anything that makes your brewery unique
+                </label>
+                <input
+                  className="desc-input"
+                  type="text"
+                  placeholder="Please write at least 30 characters"
+                  value={description}
+                  onChange={updateDescription}
+                />
+                {ValidationErrors.map((error) => {
+                  if (error.includes("Description")) {
+                    return <div id="desc-error"className="error-text">{error}</div>;
+                  }
+                })}
+              </div>
+              <div className="create-input">
+                <label id="name-header">Create a title for your spot</label>
+                <label id="name-label">
+                  Catch guests with your creative Brewery name.
+                </label>
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Name of your spot"
                   value={name}
                   onChange={updateName}
                 />
@@ -173,11 +187,15 @@ const CreateSpotForm = () => {
                   }
                 })}
               </div>
-              <div className="create-input">
+              <div className="price-input">
+                <label id="price-header">Set a price for your cheapest brew</label>
+                <label id="price-label">
+                  Competitive pricing can help your brewery stand out and rank higher in search results.
+                </label>
                 <input
                   className="inputs"
                   type="text"
-                  placeholder="Price"
+                  placeholder="Price per cheapest brew (USD)"
                   value={price}
                   onChange={updatePrice}
                 />
@@ -188,10 +206,40 @@ const CreateSpotForm = () => {
                 })}
               </div>
               <div className="create-input">
+                <label id="image-header">Liven up your spot with Photos</label>
+                <lavel id="image-label">Submit a link to at least one photo to publish your spot</lavel>
                 <input
                   className="inputs"
                   type="text"
-                  placeholder="Image"
+                  placeholder="Preview Image URL"
+                  value={image}
+                  onChange={updateImage}
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image}
+                  onChange={updateImage}
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image}
+                  onChange={updateImage}
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image}
+                  onChange={updateImage}
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Image URL"
                   value={image}
                   onChange={updateImage}
                 />
