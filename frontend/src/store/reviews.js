@@ -10,10 +10,10 @@ const read = reviews => ({
 
 export const getAllReviews = (spotId) => async dispatch => {
 
-    const res = await fetch(`api/spots/${spotId}/reviews`)
+    const res = await fetch(`/api/spots/${spotId}/reviews`)
 
     if(res.ok){
-        const reviews = await Response.json();
+        const reviews = await res.json();
         dispatch(read(reviews.Reviews))
     }
 }
@@ -35,6 +35,7 @@ const reviewReducer = (state = initialState, action) => {
             action.reviews.forEach((review) => {
                 reviewList[review.id] = review
             })
+
             return reviewList
 
         default:
