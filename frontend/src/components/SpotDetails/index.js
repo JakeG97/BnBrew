@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom"
-import { getSpotDetails } from "../../store/spots";
+import { getSpotDetails, removeSpot } from "../../store/spots";
+import { NavLink } from "react-router-dom";
 import "./SpotDetails.css"
 import Reviews from "../ReviewForm";
 import { getAllReviews } from "../../store/reviews";
-import { removeSpot } from "../../store/spots";
 
 
 const SpotDetails = () => {
@@ -66,6 +66,9 @@ const SpotDetails = () => {
                 {userOwner && (
                     <div key={spot} className="delete-button-container">
                         <button className="delete-button" onClick={(e) => handleDelete(e)}>Delete Your Spot</button>
+                        <NavLink to={`/spots/${spot.id}/edit`}>
+                            <button className="editsbtn">Edit Your Spot</button>
+                        </NavLink>
                     </div>
                 )}
                 </div>

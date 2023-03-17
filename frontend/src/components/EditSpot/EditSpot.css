@@ -1,0 +1,41 @@
+.edit-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-container{
+    display: flex;
+    justify-content: space-around;
+}
+.edit-input{
+   width: 500px;
+   min-height: 40px;
+   border-radius: 10px;
+   border-color: rgba(72, 72, 72, 0.3);
+}
+
+.edit-forms{
+    padding-bottom: 10px;
+}
+
+.edit-button{
+    width: 500px;
+    height: 40px;
+    background-color: rgb(227, 28, 95);
+    border: none;
+    color: white;
+    border-radius: 8px;
+}
+
+.edit-errors{
+    display: flex;
+    justify-content: center;
+}
+ .edit-blocks{
+    list-style-type: none;
+    color: rgb(227, 28, 95);
+ }
+.edit-text{
+    width: 550px;
+}
