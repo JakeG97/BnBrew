@@ -215,7 +215,7 @@ const CreateSpotForm = () => {
                   value={image}
                   onChange={updateImage}
                 />
-                <input
+                {/* <input
                   className="inputs"
                   type="text"
                   placeholder="Image URL"
@@ -242,7 +242,7 @@ const CreateSpotForm = () => {
                   placeholder="Image URL"
                   value={image}
                   onChange={updateImage}
-                />
+                /> */}
                 {ValidationErrors.map((error) => {
                   if (error.includes("image")) {
                     return <div className="error-text">{error}</div>;

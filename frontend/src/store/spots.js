@@ -5,7 +5,7 @@ const READ_ONE = "spots/READ_ONE";
 const CREATE = "spots/CREATE";
 const DELETE = "spots/DELETE";
 const UPDATE = "spots/UPDATE";
-// const LOAD_CURRENT = "spots/LOAD_CURRENT"
+
 
 
 
