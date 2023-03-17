@@ -5,6 +5,7 @@ const READ_ONE = "spots/READ_ONE";
 const CREATE = "spots/CREATE";
 const DELETE = "spots/DELETE";
 const UPDATE = "spots/UPDATE";
+// const LOAD_CURRENT = "spots/LOAD_CURRENT"
 
 
 
@@ -32,6 +33,11 @@ const updateSpot = (spotlist) => ({
     type: UPDATE,
     spotlist
 })
+
+// const current = (spotlist) => ({
+//     type: LOAD_CURRENT,
+//     spotlist
+// })
 
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
@@ -135,8 +141,9 @@ export const getOwnerSpot = () => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/current`);
 
     if (res.ok) {
-        const spotList = await res.json();
-        dispatch(read(spotList.Spots));
+        const spots = await res.json();
+        dispatch(read(spots));
+        return spots;
     }
 };
 
