@@ -130,6 +130,16 @@ export const editSpot = (payload) => async (dispatch) => {
     }
 };
 
+// read an Owner's spot
+export const getOwnerSpot = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/current`);
+
+    if (res.ok) {
+        const spotList = await res.json();
+        dispatch(read(spotList.Spots));
+    }
+};
+
 
 const initialState = {};
 

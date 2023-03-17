@@ -2,8 +2,11 @@ import "./ReviewForm.css"
 
 export default function Reviews({review}){
 
+    if(review.stars === 0) review.stars = "New"
+
     return (
         <div>
+            {review.stars}
             <h2 className="review-div">Reviews</h2>
             {Object.values(review).map((review) => (
                 <div className="star-block" key={review.id}>
