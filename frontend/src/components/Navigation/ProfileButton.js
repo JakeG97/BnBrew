@@ -38,6 +38,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push("/");
   };
 
   const create = (e) => {
@@ -68,6 +69,13 @@ function ProfileButton({ user }) {
                     <NavLink className="linktext" exact to={`/spots/current`}>
                       My Spots
                     </NavLink>
+                  </li>
+                  <li>
+                    <NavLink className="linktext" exact to={`/reviews/current`}>
+                      My Reviews
+                    </NavLink>
+                  </li>
+                  <li>
                     <button onClick={logout}>Log Out</button>
                   </li>
                 </>

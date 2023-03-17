@@ -19,6 +19,7 @@ const SpotComponent = () => {
         <div key={spot.id}>
             <SpotBlocks key={spot.id} spot={spot} />
         </div>
+
     ));
 
     return (

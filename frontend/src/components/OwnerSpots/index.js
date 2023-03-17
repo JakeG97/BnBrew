@@ -2,28 +2,60 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOwnerSpot } from "../../store/spots";
 import SpotBlocks from "../SpotBlocks";
-import "../AllSpots/allSpots.css"
+import "../AllSpots/allSpots.css";
+import "./OwnerSpots.css"
+import { NavLink, useHistory } from "react-router-dom";
+import { removeSpot } from "../../store/spots";
 
 const OwnerSpots = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-    useEffect(() => {
-        dispatch(getOwnerSpot());
-    }, [dispatch]);
 
-    const spots = useSelector((state) => Object.values(state.spots));
+  useEffect(() => {
+    dispatch(getOwnerSpot());
+  }, [dispatch]);
 
-    if(!spots) return null;
+  const spots = useSelector((state) => Object.values(state.spots));
 
-    const spotlist = spots.map((spot) => <SpotBlocks key={spot.id} spot={spot} />);
-
+  if(spots.length === 0) {
     return (
         <div className="main-div">
             <div className="blocks">
-                {spotlist}
+                <button className="create-button" onClick={() => history.push('/newspot')}>
+                    Create a New Spot
+                </button>
             </div>
         </div>
     );
 }
+
+  const spotlist = spots.map((spot) => (
+    <div key={spot.id}>
+      <SpotBlocks spot={spot} />
+      <div className="button-container">
+        <NavLink to={`/spots/${spot.id}/edit`}>
+          <button className="edit-button">Edit</button>
+        </NavLink>
+        <button
+          className="delete-button"
+          onClick={(e) => handleDelete(e, spot.id)}
+        >Delete</button>
+      </div>
+    </div>
+  ));
+
+  const handleDelete = async (e, id) => {
+    e.preventDefault();
+    await dispatch(removeSpot(id));
+    history.push("/");
+  };
+
+  return (
+    <div className="main-div">
+      <div className="blocks">{spotlist}</div>
+    </div>
+  );
+};
 
 export default OwnerSpots;

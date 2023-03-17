@@ -18,6 +18,7 @@ export default function Reviews() {
     );
     await dispatch(deleteReview(reviewId));
     dispatch(getSpotDetails(spotId, updatedReviews));
+    history.push(`/spots/${spotId}`);
   };
 
   if (!reviews) {

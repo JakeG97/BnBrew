@@ -17,7 +17,7 @@ const create = (review, spotId) => ({
 
 const remove = (reviewId) => ({
     type: DELETE,
-    payload: reviewId
+    reviewId
 });
 
 
@@ -60,6 +60,16 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     }
 }
 
+// get Owner's reviews
+export const getOwnerReviews = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/current`)
+
+    if (res.ok) {
+        const reviews = await res.json();
+        dispatch(read(reviews.Reviews))
+    }
+}
+
 const initialState = {
     spot:{},
     user:{}
@@ -87,11 +97,9 @@ const reviewReducer = (state = initialState, action) => {
                 return newState;
 
         case DELETE:
-            newState = { ...state,
-                spot: { ...state.spot }
-            };
-            delete newState.spot[action.reviewId];
-            return newState;
+            newState = { ...state }
+            delete newState[action.reviewId]
+            return newState    
 
         default:
             return state;
