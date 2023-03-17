@@ -9,7 +9,7 @@ export default function SpotBlocks({spot}){
                     <div className="SpotImages" key={spot?.id}>
                         <Link className="link" to={`/spots/${spot?.id}`}>
                             <div>
-                                <img className="SpotImages" src={spot?.previewImg} alt="brewery"/>
+                                <img className="SpotImages" src={spot?.previewImage || spot?.previewImg} alt="brewery"/>
                             </div>
                             <div className="spot-details-container">
                                 <div className="spot-content">
