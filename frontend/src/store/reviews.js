@@ -60,6 +60,16 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     }
 }
 
+// get Owner's reviews
+export const getOwnerReviews = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/current`)
+
+    if (res.ok) {
+        const reviews = await res.json();
+        dispatch(read(reviews.Reviews))
+    }
+}
+
 const initialState = {
     spot:{},
     user:{}
