@@ -1,47 +1,54 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getSpotDetails, removeSpot } from "../../store/spots";
 import { NavLink } from "react-router-dom";
 import "./SpotDetails.css";
 import Reviews from "../ReviewForm";
-import { getAllReviews } from "../../store/reviews";
-
+import { getAllReviews, deleteReview } from "../../store/reviews";
 
 const SpotDetails = () => {
-  const { spotId } = useParams();
-  const dispatch = useDispatch();
-  const history = useHistory();
+    const { spotId } = useParams();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-  const spot = useSelector((state) => state.spots[spotId]);
-  const reviews = useSelector((state) => state.reviews);
-  const user = useSelector((state) => state.session?.user);
+    const spot = useSelector((state) => state.spots[spotId]);
+    const user = useSelector((state) => state.session?.user);
+    const reviews = useSelector((state) => state.reviews);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    await dispatch(removeSpot(spotId));
-    history.push("/");
-  };
+    const [reviewsLoaded, setReviewsLoaded] = useState(false);
 
-  useEffect(() => {
-    dispatch(getSpotDetails(spotId));
-    dispatch(getAllReviews(spotId));
-  }, [dispatch, spotId]);
+    const handleDelete = async (e) => {
+      e.preventDefault();
+      await dispatch(removeSpot(spotId));
+      history.push("/");
+    };
 
-  const userOwner = user && user.id === spot?.ownerId;
+    useEffect(() => {
+      dispatch(getSpotDetails(spotId));
+      dispatch(getAllReviews(spotId)).then(() => setReviewsLoaded(true));
+    }, [dispatch, spotId]);
 
-  const handleReviewClick = () => {
-    if (userHasReviewed) {
-      history.push(`/spots/${spotId}/reviews/${userHasReviewed.id}/edit`);
-    } else {
+    const userOwner = user && user.id === spot?.ownerId;
+  
+    const reviewsArray = Object.values(reviews);
+    let userHasReviewed = reviewsArray.find(
+        (review) => review.spotId === spotId && review.userId === user?.id
+    );
+
+    const handleReviewClick = () => {
+    if (!userHasReviewed) {
       history.push(`/spots/${spotId}/new-review`);
-    }
-  };
+        } else {
+            alert("you've already left a review on this spot")
+        }
+    };
 
-  const reviewsArray = Object.values(reviews);
-  const userHasReviewed = reviewsArray.find(
-    (review) => review.spotId === spotId && review.userId === user?.id
-  );
+    const handleReviewDelete = async (reviewId) => {
+        await dispatch(deleteReview(reviewId));
+        userHasReviewed = undefined;
+    };
+
   
   return (
     <div key={spot} className="div-head">
@@ -84,19 +91,23 @@ const SpotDetails = () => {
               : {spot?.avgRating}
             </div>
           </div>
-          {userHasReviewed ? (
-            <div className="create-review-message">
-              You've already left a review on this spot!
-            </div>
-          ) : (
-            <button
-              className="create-review-button"
-              onClick={handleReviewClick}
-              disabled={userHasReviewed}
-            >
-              Leave a Review
-            </button>
-          )}
+          {!user ? (
+                <div className="create-review-message">
+                    Please log in to leave a review!
+                </div>
+            ) : (
+            !userHasReviewed ? (
+                <div className="create-review-message">
+                    You've already left a review on this spot!
+                </div>
+            ) : (
+                <button
+                    className="create-review-button"
+                    onClick={handleReviewClick}
+                    disabled={userHasReviewed !== undefined}
+                > Leave a Review </button>
+                )
+            )}
           {userOwner && (
             <div key={spot} className="delete-button-container">
               <button
@@ -114,9 +125,8 @@ const SpotDetails = () => {
         <div className="reviewArea">
           {userHasReviewed ? (
             <Reviews
-              reviews={reviewsArray.filter(
-                (review) => review.userId === user?.id
-              )}
+                reviews={reviewsArray.filter((review) => review.userId === user?.id)}
+                handleReviewDelete={handleReviewDelete}
             />
           ) : (
             <Reviews reviews={reviewsArray} />

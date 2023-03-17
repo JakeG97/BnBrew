@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
           Create a New Spot
         </button>
           <div className="profile-button-wrapper">
-            <button class="profile-button" onClick={openMenu}>
+            <button className="profile-button" onClick={openMenu}>
               <i className="fas fa-user-circle" />
             </button>
             <ul className={ulClassName} ref={ulRef}>
