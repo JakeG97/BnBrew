@@ -27,7 +27,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
 }
 
 
-export const createReview = (payload, spotId, userObj) => async (dispatch) => {
+export const createReview = (review, spotId) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: "POST",
@@ -37,18 +37,17 @@ export const createReview = (payload, spotId, userObj) => async (dispatch) => {
 
     if (res.ok) {
         const addedReview = await res.json();
-        addedReview.User = userObj;
-        dispatch(create(payload, spotId, userObj));
+        dispatch(create(addedReview));
         return addedReview;
     }
 };
 
 
 
-
-
-
-const initialState = {};
+const initialState = {
+    spot:{},
+    user:{}
+};
 
 const reviewReducer = (state = initialState, action) => {
     let newState;
@@ -62,9 +61,16 @@ const reviewReducer = (state = initialState, action) => {
             return reviewList
 
         case CREATE:
-            newState = { ...state};
-            newState[action.reviewList.id] = action.reviewList;
-            return newState;
+            newState = { 
+                ...state,
+                spot: {
+                    [action.review.id]: action.review
+                }
+            };
+            return {
+                ...state, 
+                newState
+            }
 
         default:
             return state;
