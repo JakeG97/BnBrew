@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf"
 
 const READ = "reviews/READ"
 const CREATE = "reviews/CREATE"
-
+const DELETE = "reviews/DELETE"
 
 const read = (reviews) => ({
     type: READ,
@@ -15,7 +15,13 @@ const create = (review, spotId) => ({
     spotId
 });
 
+const remove = (reviewId) => ({
+    type: DELETE,
+    payload: reviewId
+});
 
+
+// read all reviews
 export const getAllReviews = (spotId) => async (dispatch) => {
 
     const res = await fetch(`/api/spots/${spotId}/reviews`)
@@ -26,7 +32,7 @@ export const getAllReviews = (spotId) => async (dispatch) => {
     }
 }
 
-
+// add a review
 export const createReview = (review, spotId) => async (dispatch) => {
 
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
@@ -42,7 +48,17 @@ export const createReview = (review, spotId) => async (dispatch) => {
     }
 };
 
+//delete a review
+export const deleteReview = (reviewId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "DELETE"
+    })
 
+    if (res.ok) {
+        dispatch(remove(reviewId));
+        return null;
+    }
+}
 
 const initialState = {
     spot:{},
@@ -60,17 +76,22 @@ const reviewReducer = (state = initialState, action) => {
             })
             return reviewList
 
-        case CREATE:
-            newState = { 
-                ...state,
+            case CREATE:
+                newState = {
+                    ...state,
                 spot: {
-                    [action.review.id]: action.review
-                }
+                    ...state.spot,
+                    [action.review.id]: action.review,
+                    },
+                };
+                return newState;
+
+        case DELETE:
+            newState = { ...state,
+                spot: { ...state.spot }
             };
-            return {
-                ...state, 
-                newState
-            }
+            delete newState.spot[action.reviewId];
+            return newState;
 
         default:
             return state;

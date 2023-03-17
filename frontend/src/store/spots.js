@@ -5,6 +5,7 @@ const READ_ONE = "spots/READ_ONE";
 const CREATE = "spots/CREATE";
 const DELETE = "spots/DELETE";
 const UPDATE = "spots/UPDATE";
+const UPDATE_REVIEWS = "spots/UPDATE_REVIEWS";
 
 
 
@@ -34,6 +35,12 @@ const updateSpot = (spotlist) => ({
     spotlist
 })
 
+const updateReviews = (spotId, reviews) => ({
+    type: UPDATE_REVIEWS,
+    spotId,
+    reviews,
+  });
+
 // const current = (spotlist) => ({
 //     type: LOAD_CURRENT,
 //     spotlist
@@ -51,13 +58,15 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 // read one spot
-export const getSpotDetails = (spotId) => async dispatch => {
-
+export const getSpotDetails = (spotId, reviews) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`)
 
     if (res.ok) {
         const spotDetails = await res.json();
-        dispatch(readOne(spotDetails))
+        dispatch(readOne(spotDetails));
+        if (reviews) {
+            dispatch(updateReviews(spotId, reviews));
+        }
     }
 }
 
@@ -194,6 +203,11 @@ const spotReducer = (state = initialState, action) => {
                     ...action.spotlist,
                 },
             };
+
+        case UPDATE_REVIEWS:
+            newState = { ...state };
+            newState[action.spotId].Reviews = action.reviews;
+            return newState;
 
         default:
             return state;
