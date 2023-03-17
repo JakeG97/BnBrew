@@ -17,7 +17,7 @@ const create = (review, spotId) => ({
 
 const remove = (reviewId) => ({
     type: DELETE,
-    payload: reviewId
+    reviewId
 });
 
 
@@ -87,11 +87,9 @@ const reviewReducer = (state = initialState, action) => {
                 return newState;
 
         case DELETE:
-            newState = { ...state,
-                spot: { ...state.spot }
-            };
-            delete newState.spot[action.reviewId];
-            return newState;
+            newState = { ...state }
+            delete newState[action.reviewId]
+            return newState    
 
         default:
             return state;
