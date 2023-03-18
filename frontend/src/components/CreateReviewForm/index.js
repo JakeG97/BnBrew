@@ -13,6 +13,7 @@ const CreateReviewForm = () => {
     const [stars, setStars] = useState(0);
     const [review, setReview] = useState("");
     
+    const disabled = review.length < 10;
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -30,10 +31,10 @@ const CreateReviewForm = () => {
     return (
         <div id="review-main-div">
             <div id ="review-styling" className="review-container">
-                <h1 id="review-header">Leave a Review</h1>
+                <h1 id="review-header">How was your stay?</h1>
                 <form onSubmit={submitHandler}>
                     <div>
-                        <div id="review-title">How was your beer?</div>
+                        <div id="review-title">Leave your review here...</div>
                         <label htmlFor="review"></label>
                         <textarea
                             className="review-textarea"

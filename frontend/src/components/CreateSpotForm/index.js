@@ -1,5 +1,5 @@
 import "./CreateSpotForm.css"
-import { addSpot } from "../../store/spots"
+import { addSpot, addSpotImages } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
@@ -17,7 +17,11 @@ const CreateSpotForm = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [state, setState] = useState("");
-    const [image, setImage] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
+    const [image1, setImage1] = useState("");
+    const [image2, setImage2] = useState("");
+    const [image3, setImage3] = useState("");
+    const [image4, setImage4] = useState("");
     const [ValidationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -35,17 +39,35 @@ const CreateSpotForm = () => {
         if(name.length > 50 ) errors.push("Name exceeds character limit");
         if(!price) errors.push("Price is required");
         if(isNaN(price)) errors.push("Price needs to be a number");
-        if (!image.endsWith(".jpg") &&
-            !image.endsWith(".png") &&
-            !image.endsWith(".jpeg")
-        ) {
+        if (!previewImage.endsWith(".jpg") &&
+            !previewImage.endsWith(".png") &&
+            !previewImage.endsWith(".jpeg")
+        ) 
+        if (!image1.endsWith(".jpg") &&
+            !image1.endsWith(".png") &&
+            !image1.endsWith(".jpeg")
+        )
+        if (!image2.endsWith(".jpg") &&
+            !image2.endsWith(".png") &&
+            !image2.endsWith(".jpeg")
+        )
+        if (!image3.endsWith(".jpg") &&
+            !image3.endsWith(".png") &&
+            !image3.endsWith(".jpeg")
+        )
+        if (!image4.endsWith(".jpg") &&
+            !image4.endsWith(".png") &&
+            !image4.endsWith(".jpeg")
+        )
+        
+        {
             errors.push("Please provide a valid image");
         }
 
         setValidationErrors(errors);
 
         if(user) setOwnerId(user?.id);
-    }, [user, address, city, country, description, name, price, state, image]);
+    }, [user, address, city, country, description, name, price, state, previewImage, image1, image2, image3, image4]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
@@ -54,7 +76,11 @@ const CreateSpotForm = () => {
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateState = (e) => setState(e.target.value);
-    const updateImage = (e) => setImage(e.target.value);
+    const updatePreviewImage = (e) => setPreviewImage(e.target.value);
+    const updateImage1 = (e) => setImage1(e.target.value);
+    const updateImage2 = (e) => setImage2(e.target.value);
+    const updateImage3 = (e) => setImage3(e.target.value);
+    const updateImage4 = (e) => setImage4(e.target.value);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,11 +97,52 @@ const CreateSpotForm = () => {
             name,
             price,
             state,
-            url: image,
         };
+
+        const image = []
+
+        const firstImage = {
+            url: previewImage,
+            preview: true
+        }
+
+        image.push(firstImage)
+
+        if (image1) {
+            const imageURL = {
+                url: image1,
+                preview: false
+            }
+            image.push(imageURL)
+        }
+        if (image2) {
+            const imageURL2 = {
+                url: image2,
+                preview: false
+            }
+            image.push(imageURL2)
+        }
+        if (image3) {
+            const imageURL3 = {
+                url: image3,
+                preview: false
+            }
+            image.push(imageURL3)
+        }
+        if (image4) {
+            const imageURL4 = {
+                url: image4,
+                preview: false
+            }
+            image.push(imageURL4)
+        }
 
         let addedSpot = await dispatch(addSpot(payload));
         if(addedSpot) {
+            for(let i = 0; i < image.length; i++) {
+              const imageData = image[i];
+              await dispatch(addSpotImages(addedSpot.id, imageData));
+            }
             history.push(`/spots/${addedSpot.id}`);
         }
         history.replace("/");
@@ -212,37 +279,37 @@ const CreateSpotForm = () => {
                   className="inputs"
                   type="text"
                   placeholder="Preview Image URL"
-                  value={image}
-                  onChange={updateImage}
-                />
-                {/* <input
-                  className="inputs"
-                  type="text"
-                  placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
+                  value={previewImage}
+                  onChange={updatePreviewImage}
                 />
                 <input
                   className="inputs"
                   type="text"
                   placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
+                  value={image1}
+                  onChange={updateImage1}
                 />
                 <input
                   className="inputs"
                   type="text"
                   placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
+                  value={image2}
+                  onChange={updateImage2}
                 />
                 <input
                   className="inputs"
                   type="text"
                   placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
-                /> */}
+                  value={image3}
+                  onChange={updateImage3}
+                />
+                <input
+                  className="inputs"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image4}
+                  onChange={updateImage4}
+                />
                 {ValidationErrors.map((error) => {
                   if (error.includes("image")) {
                     return <div className="error-text">{error}</div>;
@@ -251,7 +318,7 @@ const CreateSpotForm = () => {
               </div>
               <div className="create-input">
                 <button className="submit-button" onClick={handleSubmit}>
-                  Submit
+                  Create Spot
                 </button>
               </div>
             </div>

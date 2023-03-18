@@ -96,7 +96,7 @@ const SpotDetails = () => {
                     Please log in to leave a review!
                 </div>
             ) : (
-            !userHasReviewed ? (
+            userHasReviewed ? (
                 <div className="create-review-message">
                     You've already left a review on this spot!
                 </div>

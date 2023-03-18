@@ -6,6 +6,7 @@ const CREATE = "spots/CREATE";
 const DELETE = "spots/DELETE";
 const UPDATE = "spots/UPDATE";
 const UPDATE_REVIEWS = "spots/UPDATE_REVIEWS";
+const ADD_IMAGES = "spots/ADD_IMAGES";
 
 
 
@@ -39,12 +40,13 @@ const updateReviews = (spotId, reviews) => ({
     type: UPDATE_REVIEWS,
     spotId,
     reviews,
-  });
+});
 
-// const current = (spotlist) => ({
-//     type: LOAD_CURRENT,
-//     spotlist
-// })
+const updateSpotImages = (spotId, image) => ({
+    type: ADD_IMAGES,
+    spotId,
+    image,
+});
 
 // read all spots
 export const getAllSpots = () => async (dispatch) => {
@@ -73,6 +75,21 @@ export const getSpotDetails = (spotId, reviews) => async dispatch => {
 // create a spot
 export const addSpot = (payload) => async (dispatch) => {
     const {
+      ownerId,
+      address,
+      city,
+      country,
+      description,
+      name,
+      price,
+      state,
+      images,
+    } = payload;
+  
+    const res = await csrfFetch(`/api/spots`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         ownerId,
         address,
         city,
@@ -81,42 +98,25 @@ export const addSpot = (payload) => async (dispatch) => {
         name,
         price,
         state,
-        url,
-    } = payload;
-
-    const res = await csrfFetch(`/api/spots`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({
-            ownerId,
-            address,
-            city,
-            country,
-            description,
-            name,
-            price,
-            state,
-        }),
+      }),
     });
-
+  
     if (res.ok) {
-        const data = await res.json();
-        const img = await csrfFetch(`/api/spots/${data.id}/images`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({
-                url,
-                preview: true,
-            }),
-        });
-    if (img.ok) {
-        const imgData = await img.json();
-        data.SpotImages = [imgData];
-        dispatch(createSpot(data));
-        return data;
-        }
+      const spotData = await res.json();
+  
+      if (images && images.length > 0) {
+        const imageData = await Promise.all(
+          images.map((image) =>
+            dispatch(addSpotImages(spotData.id, image.url, image.preview))
+          )
+        );
+        spotData.SpotImages = imageData;
+      }
+  
+      dispatch(createSpot(spotData));
+      return spotData;
     }
-};
+  };
 
 // delete a spot
 export const removeSpot = (spotId) => async (dispatch) => {
@@ -155,6 +155,24 @@ export const getOwnerSpot = () => async (dispatch) => {
         return spots;
     }
 };
+
+export const addSpotImages = (spotId, url, preview) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify({
+        url,
+        preview,
+      }),
+    });
+ if (res.ok) {
+    const imgData = await res.json();
+    dispatch(updateSpotImages(spotId, imgData));
+    return imgData;
+  }
+};
+
+
 
 
 const initialState = {};
@@ -207,6 +225,11 @@ const spotReducer = (state = initialState, action) => {
         case UPDATE_REVIEWS:
             newState = { ...state };
             newState[action.spotId].Reviews = action.reviews;
+            return newState;
+
+        case ADD_IMAGES:
+            newState = { ...state };
+            newState[action.spotId].SpotImages = action.images;
             return newState;
 
         default:
