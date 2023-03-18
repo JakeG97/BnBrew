@@ -1,5 +1,5 @@
 import "./CreateSpotForm.css"
-import { addSpot, addSpotImages } from "../../store/spots"
+import { addSpot } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
@@ -17,57 +17,9 @@ const CreateSpotForm = () => {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [state, setState] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
-    const [image1, setImage1] = useState("");
-    const [image2, setImage2] = useState("");
-    const [image3, setImage3] = useState("");
-    const [image4, setImage4] = useState("");
+    const [image, setImage] = useState("");
     const [ValidationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
-
-    useEffect(() => {
-        const errors = [];
-
-        if(!user) errors.push("Please Log In");
-        if(!address) errors.push("Address is required");
-        if(!country) errors.push("Country is required");
-        if(!city) errors.push("City is required");
-        if(!state) errors.push("State is required");
-        if(!description) errors.push("Description is required");
-        if(description.length < 30) errors.push("Desctiption needs a minimum of 30 characters")
-        if(!name) errors.push("Name is required");
-        if(name.length > 50 ) errors.push("Name exceeds character limit");
-        if(!price) errors.push("Price is required");
-        if(isNaN(price)) errors.push("Price needs to be a number");
-        if (!previewImage.endsWith(".jpg") &&
-            !previewImage.endsWith(".png") &&
-            !previewImage.endsWith(".jpeg")
-        ) 
-        if (!image1.endsWith(".jpg") &&
-            !image1.endsWith(".png") &&
-            !image1.endsWith(".jpeg")
-        )
-        if (!image2.endsWith(".jpg") &&
-            !image2.endsWith(".png") &&
-            !image2.endsWith(".jpeg")
-        )
-        if (!image3.endsWith(".jpg") &&
-            !image3.endsWith(".png") &&
-            !image3.endsWith(".jpeg")
-        )
-        if (!image4.endsWith(".jpg") &&
-            !image4.endsWith(".png") &&
-            !image4.endsWith(".jpeg")
-        )
-        
-        {
-            errors.push("Please provide a valid image");
-        }
-
-        setValidationErrors(errors);
-
-        if(user) setOwnerId(user?.id);
-    }, [user, address, city, country, description, name, price, state, previewImage, image1, image2, image3, image4]);
 
     const updateAddress = (e) => setAddress(e.target.value);
     const updateCity = (e) => setCity(e.target.value);
@@ -76,11 +28,36 @@ const CreateSpotForm = () => {
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateState = (e) => setState(e.target.value);
-    const updatePreviewImage = (e) => setPreviewImage(e.target.value);
-    const updateImage1 = (e) => setImage1(e.target.value);
-    const updateImage2 = (e) => setImage2(e.target.value);
-    const updateImage3 = (e) => setImage3(e.target.value);
-    const updateImage4 = (e) => setImage4(e.target.value);
+    const updateImage = (e) => setImage(e.target.value);
+    
+    useEffect(() => {
+
+        const errors = [];
+
+        if(!user) errors.push("Please Log In");
+        if(!address) errors.push("Address is required");
+        if(!country) errors.push("Country is required");
+        if(!city) errors.push("City is required");
+        if(!state) errors.push("State is required");
+        if(!description) errors.push("Description is required");
+        if(description.length < 30) errors.push("Description needs a minimum of 30 characters")
+        if(!name) errors.push("Name is required");
+        if(name.length > 50 ) errors.push("Name exceeds character limit");
+        if(!price) errors.push("Price is required");
+        if(isNaN(price)) errors.push("Price needs to be a number");
+        if (!image.endsWith(".jpg") &&
+            !image.endsWith(".png") &&
+            !image.endsWith(".jpeg")
+        ) {
+            errors.push("Please provide a valid image");
+        }
+
+        setValidationErrors(errors);
+
+        if(user) setOwnerId(user?.id);
+
+    }, [user, address, city, country, description, name, price, state, image]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,227 +74,156 @@ const CreateSpotForm = () => {
             name,
             price,
             state,
+            url: image,
         };
-
-        const image = []
-
-        const firstImage = {
-            url: previewImage,
-            preview: true
-        }
-
-        image.push(firstImage)
-
-        if (image1) {
-            const imageURL = {
-                url: image1,
-                preview: false
-            }
-            image.push(imageURL)
-        }
-        if (image2) {
-            const imageURL2 = {
-                url: image2,
-                preview: false
-            }
-            image.push(imageURL2)
-        }
-        if (image3) {
-            const imageURL3 = {
-                url: image3,
-                preview: false
-            }
-            image.push(imageURL3)
-        }
-        if (image4) {
-            const imageURL4 = {
-                url: image4,
-                preview: false
-            }
-            image.push(imageURL4)
-        }
 
         let addedSpot = await dispatch(addSpot(payload));
         if(addedSpot) {
-            for(let i = 0; i < image.length; i++) {
-              const imageData = image[i];
-              await dispatch(addSpotImages(addedSpot.id, imageData));
-            }
             history.push(`/spots/${addedSpot.id}`);
         }
-        history.replace("/");
     };
 
     return (
-        <div className="head-div">
+        <div className="edit-div">
           <form onSubmit={handleSubmit}>
             {!user && <h1 className="signin-error">Please Sign In</h1>}
-            <div className="header">
-                <h1 className="heading">Create a Spot</h1>
-                <h2 className="sub-heading">Where's your place located?</h2>
-                <h4 className="res-heading">Guests will only get an exact address once they've booked a reservation.</h4>
+            <div className="edit-container">
+                <h1 className="title">Create a Spot</h1>
+                <h2 className="title-description">Where's your place located?</h2>
+                <p className="booking">Guests will only get an exact address once they've booked a reservation.</p>
             </div>
-            <div className="input-container">
-            <div className="create-input">
-                <label id="input-labels">Country</label>
+
+            {hasSubmitted && ValidationErrors.length > 0 && (
+              <div className="edit-errors">
+                <ul className="edit-blocks">
+                  {ValidationErrors.map((error) => (
+                    <li className="edit-text" key={error}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="edit-forms-container">
+              <div className="edit-forms">
+                <p id="input-title">Country</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Country"
                   value={country}
                   onChange={updateCountry}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Country")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="create-input">
-                <label id="input-labels">Address</label>
+              <div className="edit-forms">
+                <p id="input-title">Address</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Address"
                   value={address}
                   onChange={updateAddress}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Address")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="create-input">
-                <label id="input-labels">City</label>
+              <div className="edit-forms">
+                <p id="input-title">City</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="City"
                   value={city}
                   onChange={updateCity}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("City")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="create-input">
-                <label id="input-labels">State</label>
+              <div className="edit-forms">
+                <p id="input-title">State</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="State"
                   value={state}
                   onChange={updateState}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("State")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="create-input">
-                <label id="desc-header">Describe your place to guests</label>
-                <label id="desc-label">
-                Mention the best features of your space, any special drinks or ales, anything that makes your brewery unique
-                </label>
-                <input
-                  className="desc-input"
-                  type="text"
-                  placeholder="Please write at least 30 characters"
-                  value={description}
-                  onChange={updateDescription}
-                />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Description")) {
-                    return <div id="desc-error"className="error-text">{error}</div>;
-                  }
-                })}
+              <div className="edit-forms">
+              <h2 className="big-input-title">Describe your place to guests</h2>
+              <p className="input-labels">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
+              <textarea
+                id="desc-box"
+                className="edit-input"
+                placeholder="Please write at least 30 characters"
+                value={description}
+                onChange={updateDescription}
+              ></textarea>
               </div>
-              <div className="create-input">
-                <label id="name-header">Create a title for your spot</label>
-                <label id="name-label">
-                  Catch guests with your creative Brewery name.
-                </label>
+              <div className="edit-forms">
+              <h2 className="big-input-title">Create a title for your Spot</h2>
+              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Name of your spot"
                   value={name}
                   onChange={updateName}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Name")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="price-input">
-                <label id="price-header">Set a price for your cheapest brew</label>
-                <label id="price-label">
-                  Competitive pricing can help your brewery stand out and rank higher in search results.
-                </label>
+              <div className="edit-forms">
+              <h2 className="big-input-title">Set a base price for your spot</h2>
+              <p className="input-labels">Competitive Pricing can help your listing stand out and rank higher in search results.</p>
+              <span className="dollar-sign">$</span>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Price per cheapest brew (USD)"
                   value={price}
                   onChange={updatePrice}
                 />
-                {ValidationErrors.map((error) => {
-                  if (error.includes("Price")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
-              <div className="create-input">
-                <label id="image-header">Liven up your spot with Photos</label>
-                <lavel id="image-label">Submit a link to at least one photo to publish your spot</lavel>
+              <div className="edit-forms">
+              <h2 className="big-input-title">Liven up your spot with photos</h2>
+              <p className="input-labels">Submit a link to at least one photo to publish your spot</p>
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Preview Image URL"
-                  value={previewImage}
-                  onChange={updatePreviewImage}
+                  value={image}
+                  onChange={updateImage}
                 />
-                <input
-                  className="inputs"
+                {/* <input
+                  className="edit-input"
                   type="text"
                   placeholder="Image URL"
-                  value={image1}
-                  onChange={updateImage1}
+                  value={image}
+                  onChange={updateImage}
                 />
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Image URL"
-                  value={image2}
-                  onChange={updateImage2}
+                  value={image}
+                  onChange={updateImage}
                 />
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Image URL"
-                  value={image3}
-                  onChange={updateImage3}
+                  value={image}
+                  onChange={updateImage}
                 />
                 <input
-                  className="inputs"
+                  className="edit-input"
                   type="text"
                   placeholder="Image URL"
-                  value={image4}
-                  onChange={updateImage4}
-                />
+                  value={image}
+                  onChange={updateImage}
+                /> */}
                 {ValidationErrors.map((error) => {
                   if (error.includes("image")) {
                     return <div className="error-text">{error}</div>;
                   }
                 })}
               </div>
-              <div className="create-input">
-                <button className="submit-button" onClick={handleSubmit}>
+              <div className="edit-forms">
+                <button id="edit-button" onClick={handleSubmit}>
                   Create Spot
                 </button>
               </div>

@@ -35,7 +35,7 @@ export default function Reviews() {
   }
 
   return (
-    <div>
+    <div className="review-container">
       <h2 className="review-div">Reviews</h2>
       {Object.values(reviews).map((review) => (
         <div className="star-block" key={review.id}>

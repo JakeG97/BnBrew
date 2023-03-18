@@ -45,6 +45,7 @@ const EditSpotForm = () =>{
     useEffect(() => {
       
       const errors = [];
+
       if (!user) errors.push("Please Log In");
       if (!country) errors.push("Country is required");
       if (!address) errors.push("Address is required");
@@ -150,13 +151,13 @@ const EditSpotForm = () =>{
               <div className="edit-forms">
               <h2 className="big-input-title">Describe your place to guests</h2>
               <p className="input-labels">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Description"
-                  value={description}
-                  onChange={updateDescription}
-                />
+              <textarea
+                id="desc-box"
+                className="edit-input"
+                placeholder="Please write at least 30 characters"
+                value={description}
+                onChange={updateDescription}
+              ></textarea>
               </div>
               <div className="edit-forms">
               <h2 className="big-input-title">Create a title for your Spot</h2>

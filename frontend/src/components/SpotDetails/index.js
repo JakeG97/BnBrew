@@ -54,6 +54,97 @@ const SpotDetails = () => {
         userHasReviewed = undefined;
     };
 
+    let reviewCount;
+    let numReviews = spot?.numReviews
+
+    if (numReviews === 1) {
+        reviewCount = "review"
+    } else if (numReviews === 0) {
+        reviewCount = "New"
+        numReviews = ""
+    } else {
+        reviewCount = "reviews"
+    }
+
+    const noReviews = () => {
+        if (reviewCount === "New" && user) {
+            return (
+                <div>Be the first to post a review!</div>
+            )
+        }
+    }
+
+    const orderReviews = () => {
+        let { Reviews } = reviews;
+        Reviews?.sort((a, b) => {
+            const createdReview1 = new Date(a?.createdAt);
+            const createdReview2 = new Date(b?.createdAt)
+            if (createdReview1 < createdReview2) {
+                return 1
+            } else if (createdReview1 > createdReview2) {
+                return -1
+            } else {
+                return 0
+            }
+        })
+
+    if (reviews?.length === 0) {
+        return (
+        <div></div>
+        )
+    } else {
+        let spotName = spot.name;
+        return Reviews?.map((review) => {
+            let starsCount;
+            if (review?.stars === 1) {
+                starsCount =
+                <span>
+                    <i className="fa-sharp fa-solid fa-star" />
+                </span>
+            }
+            if (review?.stars === 2) {
+                starsCount =
+                <div>
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                </div>
+            }
+            if (review?.stars === 3) {
+                starsCount =
+                <div>
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                </div>
+            }
+            if (review?.stars === 4) {
+                starsCount =
+                <div>
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                </div>
+            }
+            if (review?.stars === 5) {
+                starsCount =
+                <div>
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                    <i className="fa-sharp fa-solid fa-star" />
+                </div>
+            }
+
+            let date = new Date(review.createdAt);
+
+
+        })
+    }
+
+    }
+
   
   return (
     <div key={spot} className="div-head">
