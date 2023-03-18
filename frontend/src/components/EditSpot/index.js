@@ -109,6 +109,15 @@ const EditSpotForm = () =>{
                 <input
                   className="edit-input"
                   type="text"
+                  placeholder="Country"
+                  value={country}
+                  onChange={updateCountry}
+                />
+              </div>
+              <div className="edit-forms">
+                <input
+                  className="edit-input"
+                  type="text"
                   placeholder="Address"
                   value={address}
                   onChange={updateAddress}
@@ -130,15 +139,6 @@ const EditSpotForm = () =>{
                   placeholder="State"
                   value={state}
                   onChange={updateState}
-                />
-              </div>
-              <div className="edit-forms">
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Country"
-                  value={country}
-                  onChange={updateCountry}
                 />
               </div>
   

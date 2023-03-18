@@ -35,7 +35,7 @@ const OwnerSpots = () => {
       <SpotBlocks spot={spot} />
       <div className="button-container">
         <NavLink to={`/spots/${spot.id}/edit`}>
-          <button className="edit-button">Edit</button>
+          <button className="edit-button">Update</button>
         </NavLink>
         <button
           className="delete-button"
@@ -53,6 +53,7 @@ const OwnerSpots = () => {
 
   return (
     <div className="main-div">
+      <h1 className="title">My Spots</h1>
       <div className="blocks">{spotlist}</div>
     </div>
   );
