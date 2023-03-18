@@ -29,6 +29,9 @@ function SignupFormModal() {
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
+  const isUsernameValid = username.length >= 4;
+  const isPasswordValid = password.length >= 6;
+
   return (
     <div className="signup-container">
       <h1 className="signup-title">Sign Up</h1>
@@ -96,7 +99,7 @@ function SignupFormModal() {
             className="signup-input"
           />
         </label>
-        <button type="submit" className="signup-button">Sign Up</button>
+        <button type="submit" className="signup-button" disabled={!isUsernameValid || !isPasswordValid}>Sign Up</button>
       </form>
     </div>
   );
