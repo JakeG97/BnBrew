@@ -12,7 +12,7 @@ const CreateReviewForm = () => {
 
     const [stars, setStars] = useState(0);
     const [review, setReview] = useState("");
-    
+    const [error, setError] = useState(null); // add state for error message
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -24,16 +24,20 @@ const CreateReviewForm = () => {
 
         if (addedReview) {
             history.push(`/spots/${spotId}`)
+        } else {
+            // handle error
+            setError('There was an error creating your review. Please try again.'); // set error state
         }
     };
 
     return (
         <div id="review-main-div">
             <div id ="review-styling" className="review-container">
-                <h1 id="review-header">Leave a Review</h1>
+                <h1 id="review-header">How was your stay?</h1>
+                {error && <h2>{error}</h2>} {/* render error message */}
                 <form onSubmit={submitHandler}>
                     <div>
-                        <div id="review-title">How was your beer?</div>
+                        <div id="review-title">Leave your review here...</div>
                         <label htmlFor="review"></label>
                         <textarea
                             className="review-textarea"
@@ -52,7 +56,7 @@ const CreateReviewForm = () => {
                         </fieldset>
                     </div>
                     <div id='createReview-buttonDiv'>
-                        <button id='createReview-submitBtn'type='submit'>Submit your review</button>
+                        <button id='createReview-submitBtn' disabled={review.length < 10} type='submit'>Submit your review</button> {/* disable submit button if review text is less than 10 characters */}
                     </div>
                 </form>
             </div>

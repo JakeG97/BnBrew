@@ -45,6 +45,7 @@ const EditSpotForm = () =>{
     useEffect(() => {
       
       const errors = [];
+
       if (!user) errors.push("Please Log In");
       if (!country) errors.push("Country is required");
       if (!address) errors.push("Address is required");
@@ -91,7 +92,9 @@ const EditSpotForm = () =>{
         {user.id === +ownerId && (
           <form onSubmit={handleSubmit}>
             <div className="edit-container">
-              <h1>Edit a Spot</h1>
+              <h1 className="title">Update Your Spot</h1>
+              <h2 className="title-description">Where's your place located?</h2>
+              <p className="booking">Guests will only get your exact adress once they booked a reservation</p>
             </div>
   
             {ValidationErrors.length > 0 && (
@@ -104,8 +107,19 @@ const EditSpotForm = () =>{
               </div>
             )}
   
-            <div>
+            <div className="edit-forms-container">
               <div className="edit-forms">
+              <p className="input-title">Country</p>
+                <input
+                  className="edit-input"
+                  type="text"
+                  placeholder="Country"
+                  value={country}
+                  onChange={updateCountry}
+                />
+              </div>
+              <div className="edit-forms">
+              <p className="input-title">Address</p>
                 <input
                   className="edit-input"
                   type="text"
@@ -115,6 +129,7 @@ const EditSpotForm = () =>{
                 />
               </div>
               <div className="edit-forms">
+              <p className="input-title">City</p>
                 <input
                   className="edit-input"
                   type="text"
@@ -124,6 +139,7 @@ const EditSpotForm = () =>{
                 />
               </div>
               <div className="edit-forms">
+              <p className="input-title">State</p>
                 <input
                   className="edit-input"
                   type="text"
@@ -133,26 +149,19 @@ const EditSpotForm = () =>{
                 />
               </div>
               <div className="edit-forms">
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Country"
-                  value={country}
-                  onChange={updateCountry}
-                />
+              <h2 className="big-input-title">Describe your place to guests</h2>
+              <p className="input-labels">Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</p>
+              <textarea
+                id="desc-box"
+                className="edit-input"
+                placeholder="Please write at least 30 characters"
+                value={description}
+                onChange={updateDescription}
+              ></textarea>
               </div>
-  
               <div className="edit-forms">
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Description"
-                  value={description}
-                  onChange={updateDescription}
-                />
-              </div>
-  
-              <div className="edit-forms">
+              <h2 className="big-input-title">Create a title for your Spot</h2>
+              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special</p>
                 <input
                   className="edit-input"
                   type="text"
@@ -162,6 +171,9 @@ const EditSpotForm = () =>{
                 />
               </div>
               <div className="edit-forms">
+              <h2 className="big-input-title">Set a base price for your spot</h2>
+              <p className="input-labels">Competitive Pricing can help your listing stand out and rank higher in search results.</p>
+              <span className="dollar-sign">$</span>
                 <input
                   className="edit-input"
                   type="text"
@@ -171,9 +183,9 @@ const EditSpotForm = () =>{
                 />
               </div>
             </div>
-            <div className="edit-forms">
-              <button className="edit-button" type="submit">
-                Submit
+            <div className="button-container">
+              <button id="edit-button" type="submit">
+                Update Spot
               </button>
             </div>
           </form>

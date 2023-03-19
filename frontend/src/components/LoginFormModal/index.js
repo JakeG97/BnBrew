@@ -24,6 +24,18 @@ function LoginFormModal() {
       );
   };
 
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.login({ credential: 'SlimJim', password: 'slimmy' }))
+      .then(closeModal)
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(Object.values(data.errors));
+        }
+      );
+  };
+
   return (
     <div id="login-container">
       <h1>Log In</h1>
@@ -34,31 +46,32 @@ function LoginFormModal() {
               <li key={idx}>{error}</li>
               ))}
           </ul>
-          </div>
-          <label>
-            Username or Email
-            <div className='login-input'>
+        </div>
+        <label>
+          Username or Email
+          <div className='login-input'>
             <input
               type="text"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
               required
             />
-            </div>
-          </label>
-          <label>
-            Password
-            <div className='login-input'>
+          </div>
+        </label>
+        <label>
+          Password
+          <div className='login-input'>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            </div>
-          </label>
-          <button id='loginButton' type="submit">Log In</button>
-        </form>
+          </div>
+        </label>
+        <button id='loginButton' type="submit">Log In</button>
+      </form>
+      <button id='demoLoginButton' onClick={handleDemoLogin}>Log in as Demo User</button>
     </div>
   );
 }
