@@ -101,7 +101,7 @@ const SpotDetails = () => {
                 <div className="review-block">
                     <div className="price-container">
                         <div>
-                            <span className="actual-price">${spot?.price}</span>
+                            <span className="actual-price">${spot?.price} night</span>
                         </div>
                         <div className="fa-sharp fa-solid fa-star">
                             {spot?.avgRating !== undefined && spot?.avgRating !== null && (
@@ -119,7 +119,9 @@ const SpotDetails = () => {
                                 <>{" "}</>
                             )}
                         </div>
+                        <button className="reserve-button" onclick="alert('Feature Coming Soon...')">Reserve</button>
                     </div>
+                </div>
             </div>
                 {!user ? (
                     <div className="create-review-message">
@@ -134,7 +136,7 @@ const SpotDetails = () => {
                             className="create-review-button"
                             onClick={handleReviewClick}
                             disabled={userHasReviewed !== undefined}
-                        > Leave a Review </button>
+                        > Post Your Review </button>
                     )
                 )}
                 {userOwner && (
@@ -151,7 +153,7 @@ const SpotDetails = () => {
                     </div>
                 )}
             </div>
-            <div className="reviewArea">
+            <div className="review-area">
                 {userHasReviewed ? (
                     <Reviews
                         reviews={reviewsArray.filter((review) => review.userId === user?.id)}
@@ -161,7 +163,6 @@ const SpotDetails = () => {
                     <Reviews reviews={reviewsArray} />
                 )}
             </div>
-        </div>
         {confirmDelete && (
             <div className="confirm-delete">
                 <div className="confirm-delete-content">

@@ -1,3 +1,43 @@
+.main-div{
+  margin-left: 4em;
+}
+
+
 #delete-review-button {
     border: 1px solid red;
   }
+
+#review-count {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.25em;
+  margin-bottom: 0.25em;
+}
+  
+.dot-separator {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.reviewer-name{
+  font-size: larger;
+  margin-bottom: .5em;
+}
+
+.month-year{
+  color: grey;
+  font-size: medium;
+  margin-bottom: .5em;
+}
+
+.actual-review {
+  margin-bottom: .5em;
+}
+
+#star{
+  margin-bottom: .5em;
+  border-bottom: solid grey 2px;
+  padding: 1em;
+  width: 150%;
+}
+

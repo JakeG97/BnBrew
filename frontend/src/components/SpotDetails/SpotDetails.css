@@ -69,17 +69,25 @@
 
 .information-container{
     display: flex;
-    /* flex-direction: column;
-    justify-content: space-between; */
+    flex-wrap: wrap;
+    width: 100%;
+    /* justify-content: space-between; */
   
 }
 
 .review-block-container {
-    display: inline-block;
+    /* display: inline-block; */
     width: 40%;
   }
 
+.review-area{
+    display: flex;
+    flex-direction: column;
+}
+
 .review-block{
+    display: flex;
+    flex-direction: column;
     width: 20em;
     padding: 20px;
     margin-top: 15px;
@@ -89,15 +97,15 @@
 
 .price-container{
     display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 35px;
+  flex-direction: column;
+  margin-right: 2em;
 }
 
 
 .title-description-container {
-  display: inline-block;
+  /* display: inline-block; */
   width: 60%;
+  height: 100%;
 }
 
 .spot-description{
@@ -107,7 +115,7 @@
     padding-bottom: 15px;
     margin-left: 4em;
     margin-top: 1em;
-    width: 54em;
+    width: 45em;
 }
 
 .owner-name{
@@ -116,6 +124,8 @@
 
 .actual-price{
     font-weight: bold;
+    font-size: x-large;
+    /* margin-right: 5em; */
 }
 
 .confirm-delete {
@@ -169,10 +179,40 @@
 
 .fa-sharp.fa-solid.fa-star {
     width: 100%;
+    font-size: small;
+    display: flex;
+    justify-content: flex-end;
   }
 
 #new{
     font-weight: 200;
+}
+
+.review-block .reserve-button {
+    margin-top: 1em;
+    margin-left: 1em;
+    width: 22em;
+    height: 4em;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    /* margin-top: 4em; */
+  }
+
+.create-review-button{
+    margin-top: 1em;
+    margin-left: 5em;
+    width: 8em;
+    height: 4em;
+    background-color: grey;
+    border: none;
+    color: white;
+    border-radius: 8px;
+}
+
+.create-review-button:hover {
+    cursor: pointer;
 }
 
 /* .fa-sharp.fa-solid.fa-star:before {
