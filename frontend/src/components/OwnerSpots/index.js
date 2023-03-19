@@ -1,16 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOwnerSpot } from "../../store/spots";
+import { getOwnerSpot, removeSpot } from "../../store/spots";
 import SpotBlocks from "../SpotBlocks";
 import "../AllSpots/allSpots.css";
-import "./OwnerSpots.css"
+import "./OwnerSpots.css";
 import { NavLink, useHistory } from "react-router-dom";
-import { removeSpot } from "../../store/spots";
 
 const OwnerSpots = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [currentSpotId, setCurrentSpotId] = useState(null);
 
   useEffect(() => {
     dispatch(getOwnerSpot());
@@ -18,17 +19,20 @@ const OwnerSpots = () => {
 
   const spots = useSelector((state) => Object.values(state.spots));
 
-  if(spots.length === 0) {
+  if (spots.length === 0) {
     return (
-        <div className="main-div">
-            <div className="blocks">
-                <button className="create-button" onClick={() => history.push('/newspot')}>
-                    Create a New Spot
-                </button>
-            </div>
+      <div className="main-div">
+        <div className="blocks">
+          <button
+            className="create-button"
+            onClick={() => history.push("/newspot")}
+          >
+            Create a New Spot
+          </button>
         </div>
+      </div>
     );
-}
+  }
 
   const spotlist = spots.map((spot) => (
     <div key={spot.id}>
@@ -39,22 +43,52 @@ const OwnerSpots = () => {
         </NavLink>
         <button
           className="delete-button"
-          onClick={(e) => handleDelete(e, spot.id)}
-        >Delete</button>
+          onClick={() => handleDeleteConfirmation(spot.id)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   ));
 
-  const handleDelete = async (e, id) => {
-    e.preventDefault();
-    await dispatch(removeSpot(id));
+  const handleDeleteConfirmation = (spotId) => {
+    setCurrentSpotId(spotId);
+    setConfirmDelete(true);
+  };
+
+  const confirmDeleteHandler = async () => {
+    await dispatch(removeSpot(currentSpotId));
+    setCurrentSpotId(null);
+    setConfirmDelete(false);
     history.push("/");
   };
 
   return (
-    <div className="main-div">
+    <div className="owner-spots-div">
       <h1 className="title">My Spots</h1>
       <div className="blocks">{spotlist}</div>
+      {confirmDelete && (
+        <div className="confirm-delete">
+          <div className="confirm-delete-content">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to remove this spot?</p>
+            <div className="confirm-delete-buttons">
+              <button
+                className="confirm-delete-yes"
+                onClick={confirmDeleteHandler}
+              >
+                Yes (Delete Spot)
+              </button>
+              <button
+                className="confirm-delete-no"
+                onClick={() => setConfirmDelete(false)}
+              >
+                No (keep spot)
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

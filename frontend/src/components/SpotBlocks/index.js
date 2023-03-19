@@ -16,7 +16,7 @@ export default function SpotBlocks({spot}){
                                     {spot?.city}, {spot?.state}
                                 </div>
                                     <div className="ratings-container">
-                                        <i id="rating" className="fa-sharp fa-solid fa-star">{spot?.avgRating}</i>
+                                        <i id="rating" className="fa-sharp fa-solid fa-star">{spot?.avgRating == 0 ? "New" : spot?.avgRating}</i>
                                     </div>
                             </div>
                             <div className="spot-details">

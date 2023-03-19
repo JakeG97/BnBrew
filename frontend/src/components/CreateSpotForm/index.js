@@ -1,5 +1,5 @@
 import "./CreateSpotForm.css"
-import { addSpot } from "../../store/spots"
+import { addSpot, addSpotImages } from "../../store/spots"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
@@ -60,28 +60,30 @@ const CreateSpotForm = () => {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        setHasSubmitted(true);
-        if(ValidationErrors.length) return alert("Cannot Submit");
-
-        const payload = {
-            ownerId,
-            address,
-            city,
-            country,
-            description,
-            name,
-            price,
-            state,
-            url: image,
-        };
-
-        let addedSpot = await dispatch(addSpot(payload));
-        if(addedSpot) {
-            history.push(`/spots/${addedSpot.id}`);
-        }
+      e.preventDefault();
+  
+      setHasSubmitted(true);
+      if (ValidationErrors.length) return alert("Cannot Submit");
+  
+      const payload = {
+        ownerId,
+        address,
+        city,
+        country,
+        description,
+        name,
+        price,
+        state,
+        url: image,
+      };
+  
+      let addedSpot = await dispatch(addSpot(payload));
+      if (addedSpot) {
+        dispatch(addSpotImages(addedSpot.id, image));
+        history.push(`/spots/${addedSpot.id}`);
+      }
     };
+  
 
     return (
         <div className="edit-div">
@@ -157,7 +159,7 @@ const CreateSpotForm = () => {
               </div>
               <div className="edit-forms">
               <h2 className="big-input-title">Create a title for your Spot</h2>
-              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special</p>
+              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <input
                   className="edit-input"
                   type="text"
@@ -173,7 +175,7 @@ const CreateSpotForm = () => {
                 <input
                   className="edit-input"
                   type="text"
-                  placeholder="Price per cheapest brew (USD)"
+                  placeholder="Price per night (USD)"
                   value={price}
                   onChange={updatePrice}
                 />
@@ -188,39 +190,6 @@ const CreateSpotForm = () => {
                   value={image}
                   onChange={updateImage}
                 />
-                {/* <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
-                />
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
-                />
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
-                />
-                <input
-                  className="edit-input"
-                  type="text"
-                  placeholder="Image URL"
-                  value={image}
-                  onChange={updateImage}
-                /> */}
-                {ValidationErrors.map((error) => {
-                  if (error.includes("image")) {
-                    return <div className="error-text">{error}</div>;
-                  }
-                })}
               </div>
               {user && (
                 <div className="edit-forms">

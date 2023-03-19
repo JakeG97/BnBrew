@@ -1,10 +1,21 @@
-.main-div{
+.review-main-div{
   margin-left: 4em;
 }
 
 
 #delete-review-button {
-    border: 1px solid red;
+  width: 80px;
+  height: 40px;
+  background-color: red;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  margin-top: .5em;
+  margin-bottom: 1em;
+  }
+
+  #delete-review-button:hover{
+    cursor: pointer;
   }
 
 #review-count {
@@ -36,8 +47,24 @@
 
 #star{
   margin-bottom: .5em;
-  border-bottom: solid grey 2px;
   padding: 1em;
   width: 150%;
 }
 
+.star-block {
+  border-bottom: solid grey 2px;
+  margin-bottom: 1em;
+  width: 55em;
+}
+
+#new {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1em;
+  margin-bottom: .2em;
+  font-size: x-large;
+}
+
+#no-review-text {
+  font-size: larger;
+}

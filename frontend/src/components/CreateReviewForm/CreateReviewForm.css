@@ -18,7 +18,6 @@
     text-align: center;
     border-color: grey;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 16px 0px;
-
 }
 
 
@@ -100,13 +99,13 @@
     content: "★";
 }
 
-.star-input:checked ~ label,
+.star-fill:checked ~ label,
 label:hover,
 label:hover~label {
     color: red;
 }
 
-.star-input:checked + label:hover,
+.star-fill:checked + label:hover,
 .starInput:checked~label:hover,
 input:checked~label:hover~label,
 label:hover~.starInput:checked~label {

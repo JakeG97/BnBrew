@@ -161,7 +161,7 @@ const EditSpotForm = () =>{
               </div>
               <div className="edit-forms">
               <h2 className="big-input-title">Create a title for your Spot</h2>
-              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special</p>
+              <p className="input-labels">Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <input
                   className="edit-input"
                   type="text"

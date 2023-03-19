@@ -2,7 +2,7 @@ import { useState } from "react";
 import CreateReviewForm from "../CreateReviewForm";
 import "./ReviewModal.css"
 
-const ReviewModal = ({ spotId }) => {
+const ReviewModal = ({ spotId, userOwner }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOpen = () => {
@@ -15,9 +15,11 @@ const ReviewModal = ({ spotId }) => {
 
   return (
     <>
-        <button className="create-review-button" onClick={handleOpen}>
-            Post Your Review
-        </button>
+        {!userOwner && (
+            <button className="create-review-button" onClick={handleOpen}>
+                Post Your Review
+            </button>
+        )}
         {isOpen && (
             <div className="modal">
                 <div className="modal-content">

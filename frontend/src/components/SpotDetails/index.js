@@ -60,6 +60,7 @@ const SpotDetails = () => {
 
   
   return (
+    <div className="content-co">
     <div key={spot} className="div-head">
         {spot && (
         <div>
@@ -94,7 +95,7 @@ const SpotDetails = () => {
         )}
         <div className="information-container">
             <div className="title-description-container">
-            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}</h4>
+            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}{" "}{spot?.Owner?.lastName}</h4>
                 <div className="spot-description">
                     {" "}
                     Description: {spot?.description}
@@ -115,79 +116,60 @@ const SpotDetails = () => {
                                     • {reviewCount} review{reviewCount === 1 ? '' : 's'}
                                     </>
                             )}
-                                    {reviewsArray.length === 0 && <div id="new"> New</div>}
+                                    {spot?.avgRating === 0 && <div id="new">New</div>}
                                 </>
                             )}
-                            {spot?.avgRating === undefined && spot?.avgRating === null && (
-                                <>{" "}</>
-                            )}
                         </div>
-                        <button className="reserve-button" onclick="alert('Feature Coming Soon...')">Reserve</button>
+                        <button className="reserve-button" onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                     </div>
                 </div>
-            </div>
-                {!user ? (
-                    <div className="create-review-message">
-                    </div>
-                ) : (
-                    userHasReviewed ? (
+                </div>
+                    {!user ? (
+                        <div className="create-review-message"></div>
+                    ) : userHasReviewed ? (
                         <div className="create-review-message">
-                            You've already left a review on this spot!
+                        You've already left a review on this spot!
                         </div>
-                    ) : (
-                        <ReviewModal spotId={spotId} />
-
-                        // <button
-                        //     className="create-review-button"
-                        //     onClick={handleReviewClick}
-                        //     disabled={userHasReviewed !== undefined}
-                        // > Post Your Review </button>
-                    )
-                )}
-                {userOwner && (
-                    <div key={spot} className="delete-button-container">
-                        <button
-                            className="delete-button"
-                            onClick={(e) => handleDelete(e)}
-                        >
+                    ) : !userOwner && <ReviewModal spotId={spotId} userOwner={userOwner} />}
+                    {userOwner && (
+                        <div key={spot} className="delete-button-container">
+                        <button className="delete-button" onClick={(e) => handleDelete(e)}>
                             Delete Your Spot
                         </button>
                         <NavLink to={`/spots/${spot.id}/edit`}>
-                            <button className="edit-btn">Edit Your Spot</button>
+                            <button className="edit-button">Edit Your Spot</button>
                         </NavLink>
+                        </div>
+                    )}
+                    <div className="review-area">
+                        {userHasReviewed ? (
+                        <Reviews
+                            reviews={reviewsArray.filter((review) => review.userId === user?.id)}
+                            handleReviewDelete={handleReviewDelete}
+                        />
+                        ) : (
+                        <Reviews reviews={reviewsArray} />
+                        )}
                     </div>
-                )}
+                    {confirmDelete && (
+                        <div className="confirm-delete">
+                        <div className="confirm-delete-content">
+                            <h2>Confirm Delete</h2>
+                            <p>Are you sure you want to remove this spot?</p>
+                            <div className="confirm-delete-buttons">
+                            <button className="confirm-delete-yes" onClick={confirmDeleteHandler}>
+                                Yes (Delete Spot)
+                            </button>
+                            <button className="confirm-delete-no" onClick={() => setConfirmDelete(false)}>
+                                No (keep spot)
+                            </button>
+                            </div>
+                        </div>
+                        </div>
+                    )}
             </div>
-            <div className="review-area">
-                {userHasReviewed ? (
-                    <Reviews
-                        reviews={reviewsArray.filter((review) => review.userId === user?.id)}
-                        handleReviewDelete={handleReviewDelete}
-                    />
-                ) : (
-                    <Reviews reviews={reviewsArray} />
-                )}
-            </div>
-        {confirmDelete && (
-            <div className="confirm-delete">
-                <div className="confirm-delete-content">
-                    <h2>Confirm Delete</h2>
-                    <p>Are you sure you want to remove this spot?</p>
-                    <div className="confirm-delete-buttons">
-                        <button className="confirm-delete-yes" onClick={confirmDeleteHandler}>
-                            Yes (Delete Spot)
-                        </button>
-                        <button
-                            className="confirm-delete-no"
-                            onClick={() => setConfirmDelete(false)}
-                        >
-                            No (keep spot)
-                        </button>
-                    </div>
-                </div>
-            </div>
-        )}
-    </div>
-  );
+        </div>
+        </div>
+    );
 }
 export default SpotDetails;

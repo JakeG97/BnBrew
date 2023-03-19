@@ -3,11 +3,13 @@
   justify-content: space-between;
   align-items: center;
   /* padding: .5rem; */
-  border-bottom: 1px solid grey
+  border-bottom: 1px solid grey;
+  min-width: 100vw;
 }
 
 .logo {
   height: 9rem;
+  margin-left: 1em;
 }
 
 .profile-button-wrapper {
@@ -184,5 +186,5 @@
 .button-wrapper {
   display: flex;
   align-items: center;
-  margin-right: 2em;
+  margin-right: 4em;
 }
