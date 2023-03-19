@@ -5,25 +5,48 @@
     margin-left: 1em;
 }
 
-.spotName{
+.spot-name{
     display: flex;
     align-items: center;
-    margin-right: 1em;
+    margin-left: 2em;
 }
 
 .city-state{
     display: flex;
     align-items: center;
-    margin-left: 1em;
+    margin-left: 4em;
 }
 
 
 .image-container {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
     width: 100%;
-    max-width: 140em;
-    margin: 0 auto;
+    height: 480px;
+    overflow: hidden;
+    margin-left: 4em;
+}
+
+.big-image-container {
+    width: 520px;
+    height: 500px;
+}
+
+#big-image{
+    width: 560px;
+    height: 463.5px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.small-image-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 1em;
+    width: 40em;
+    margin-left: 1em;
 }
 
 .spot-image-0 {
@@ -33,30 +56,12 @@
     flex-basis: 50%;
 }
 
+.spot-image-4,
+.spot-image-3,
+.spot-image-2,
 .spot-image-1 {
     width: 20em;
-    height: 15em;
-    border-radius: 15px;
-    flex-basis: 25%;
-}
-
-.spot-image-2 {
-    width: 20em;
-    height: 15em;
-    border-radius: 15px;
-    flex-basis: 25%;
-}
-
-.spot-image-3 {
-    width: 20em;
-    height: 15em;
-    border-radius: 15px;
-    flex-basis: 25%;
-}
-
-.spot-image-4 {
-    width: 20em;
-    height: 15em;
+    height: 13.5em;
     border-radius: 15px;
     flex-basis: 25%;
 }
@@ -64,18 +69,22 @@
 
 .information-container{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    /* flex-direction: column;
+    justify-content: space-between; */
   
 }
 
+.review-block-container {
+    display: inline-block;
+    width: 40%;
+  }
+
 .review-block{
-    width: 300px;
+    width: 20em;
     padding: 20px;
     margin-top: 15px;
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0.1) 0px 2px 4px;
-    
 }
 
 .price-container{
@@ -86,23 +95,23 @@
 }
 
 
-.text{
-    display: flex;
-    flex-direction: column;
-    width: 720px;
+.title-description-container {
+  display: inline-block;
+  width: 60%;
 }
 
 .spot-description{
+    /* display: flex; */
     font-size: 16px;
     border-bottom:  1px solid gray;
     padding-bottom: 15px;
-    margin-left: 1em;
+    margin-left: 4em;
     margin-top: 1em;
-    width: 40em;
+    width: 54em;
 }
 
 .owner-name{
-    margin-left: 1em; 
+    margin-left: 4em; 
 }
 
 .actual-price{

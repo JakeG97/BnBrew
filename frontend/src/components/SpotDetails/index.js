@@ -64,53 +64,63 @@ const SpotDetails = () => {
             <h1 className="spot-name">{spot?.name}</h1>
             <h4 className="city-state">
                 {" "}
-                {spot?.city}, {spot?.state}
+                {spot?.city}, {spot?.state}, {spot?.country}
             </h4>
             <div className="image-container" key={spot?.id}>
-                {spot.SpotImages &&
-                    spot.SpotImages.map((image, index) => {
-                        return (
-                            <div key={image.id}>
-                                <img
-                                    className={`spot-image-${index}`}
-                                    src={image.url}
-                                    alt="brewery"
-                                />
-                            </div>
-                        );
-                    })}
+            <div className="big-image-container">
+                    {spot.SpotImages && spot.SpotImages.length > 0 && (
+                        <img id = "big-image" className="spot-image-0" src={spot.SpotImages[0].url} alt="brewery" />
+                    )}
+                </div>
+                <div className="small-image-container">
+                    {spot.SpotImages && spot.SpotImages.length > 1 && (
+                        spot.SpotImages.slice(1).map((image, index) => {
+                            return (
+                                <div key={image.id}>
+                                    <img
+                                        className={`spot-image-${index + 1}`}
+                                        src={image.url}
+                                        alt="brewery"
+                                    />
+                                </div>
+                            );
+                        })
+                    )}
+                </div>
             </div>
-            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}</h4>
         </div>
         <div className="information-container">
-            <div className="text">
+            <div className="title-description-container">
+            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}</h4>
                 <div className="spot-description">
                     {" "}
                     Description: {spot?.description}
                 </div>
             </div>
-            <div className="review-block">
-                <div className="price-container">
-                    <div>
-                        <span className="actual-price">${spot?.price}</span>
-                    </div>
-                    <div className="fa-sharp fa-solid fa-star">
-                        {spot?.avgRating !== undefined && spot?.avgRating !== null && (
-                            <>
-                                {Number.parseFloat(spot?.avgRating).toFixed(1)}{" "}
-                                {reviewCount > 0 && (
+            <div className="review-block-container">
+                <div className="review-block">
+                    <div className="price-container">
+                        <div>
+                            <span className="actual-price">${spot?.price}</span>
+                        </div>
+                        <div className="fa-sharp fa-solid fa-star">
+                            {spot?.avgRating !== undefined && spot?.avgRating !== null && (
                                 <>
-                                • {reviewCount} review{reviewCount === 1 ? '' : 's'}
+                                    {Number.parseFloat(spot?.avgRating).toFixed(1)}{" "}
+                                    {reviewCount > 0 && (
+                                    <>
+                                    • {reviewCount} review{reviewCount === 1 ? '' : 's'}
+                                    </>
+                            )}
+                                    {reviewsArray.length === 0 && <div id="new"> New</div>}
                                 </>
-                           )}
-                                {reviewsArray.length === 0 && <div id="new"> New</div>}
-                            </>
-                        )}
-                        {spot?.avgRating === undefined && spot?.avgRating === null && (
-                            <>{" "}</>
-                        )}
+                            )}
+                            {spot?.avgRating === undefined && spot?.avgRating === null && (
+                                <>{" "}</>
+                            )}
+                        </div>
                     </div>
-                </div>
+            </div>
                 {!user ? (
                     <div className="create-review-message">
                     </div>
