@@ -11,8 +11,7 @@ function Navigation({ isLoaded }) {
     <ul className="navigation-container">
       <div>
         <NavLink exact to="/">
-          <img className="logo" src="https://i.imgur.com/Vh1OjLg.png" alt="BnBrew" />
-          <div>BnBrew</div>
+          <img className="logo" src="https://i.imgur.com/A52QQux.jpeg" alt="BnBrew" />
         </NavLink>
       </div>
       {isLoaded && <ProfileButton user={sessionUser} />}

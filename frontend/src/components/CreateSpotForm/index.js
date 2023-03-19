@@ -222,11 +222,13 @@ const CreateSpotForm = () => {
                   }
                 })}
               </div>
-              <div className="edit-forms">
-                <button id="edit-button" onClick={handleSubmit}>
-                  Create Spot
-                </button>
-              </div>
+              {user && (
+                <div className="edit-forms">
+                  <button id="edit-button" onClick={handleSubmit}>
+                    Create Spot
+                  </button>
+                </div>
+              )}
             </div>
           </form>
         </div>
