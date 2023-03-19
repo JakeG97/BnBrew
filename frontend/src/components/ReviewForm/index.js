@@ -39,9 +39,9 @@ export default function Reviews() {
       const createdReview2 = Date.parse(b?.createdAt);
       if (isNaN(createdReview1) || isNaN(createdReview2)) {
         return a.id - b.id;
-      } else if (createdReview1 > createdReview2) {
-        return 1;
       } else if (createdReview1 < createdReview2) {
+        return 1;
+      } else if (createdReview1 > createdReview2) {
         return -1;
       } else {
         return 0;
