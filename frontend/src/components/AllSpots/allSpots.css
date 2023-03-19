@@ -1,7 +1,13 @@
-.blocks {
+.blocks-container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 4em;
     justify-content: center;
-}
+  }
+  
+  .blocks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 8em;
+    max-width: 1200px;
+    justify-content: center;
+    margin: 4em auto;
+  }

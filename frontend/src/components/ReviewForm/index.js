@@ -52,10 +52,10 @@ export default function Reviews() {
   }
 
   return (
-    <div>
+    <div className="main-div">
       <h3 id="title" className="fas fa-sold fa-star">{orderReviews().length > 0 ? Number.parseFloat(spot?.avgRating).toFixed(1) : ""}</h3>
       {orderReviews().length > 0 && " • "}
-      {orderReviews().length > 0 && <div id="review-count">{orderReviews().length} {orderReviews().length === 1 ? 'review' : 'reviews'}</div>}
+      {orderReviews().length > 0 && <span><span className="dot-separator"></span><span id="review-count">{orderReviews().length} {orderReviews().length === 1 ? 'review' : 'reviews'}</span></span>}
       {orderReviews().length === 0 && <div id="new"> New</div>}
       {orderReviews().length < 1 && <div id="no-review-text">Be the first to post a Review</div>}
       {orderReviews().map((review) => {
@@ -64,10 +64,9 @@ export default function Reviews() {
   
         return (
           <div className="star-block" key={review.id}>
-            <div className="name">
-              Review by: {review.User?.firstName} - {monthYear}
-            </div>
-            <div className="name">{review.review}</div>
+            <div className="reviewer-name">{review.User?.firstName}</div>
+            <div className="month-year">{monthYear}</div>
+            <div className="actual-review">{review.review}</div>
               <div id="star" className="fas fa-sold fa-star">
                 {review.stars}
               </div>
