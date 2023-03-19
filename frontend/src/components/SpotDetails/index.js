@@ -60,6 +60,7 @@ const SpotDetails = () => {
   
   return (
     <div key={spot} className="div-head">
+        {spot && (
         <div>
             <h1 className="spot-name">{spot?.name}</h1>
             <h4 className="city-state">
@@ -68,7 +69,7 @@ const SpotDetails = () => {
             </h4>
             <div className="image-container" key={spot?.id}>
             <div className="big-image-container">
-                    {spot.SpotImages && spot.SpotImages.length > 0 && (
+            {spot && spot.SpotImages?.length > 0 && (
                         <img id = "big-image" className="spot-image-0" src={spot.SpotImages[0].url} alt="brewery" />
                     )}
                 </div>
@@ -89,6 +90,7 @@ const SpotDetails = () => {
                 </div>
             </div>
         </div>
+        )}
         <div className="information-container">
             <div className="title-description-container">
             <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}</h4>

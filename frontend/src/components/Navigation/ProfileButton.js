@@ -45,7 +45,7 @@ function ProfileButton() {
 
   const create = (e) => {
     e.preventDefault();
-    history.push("./newspot")
+    history.push("../newspot")
   }; 
 
   const ulClassName = "profile-dropdown" + (showMenu ? " show" : "");
