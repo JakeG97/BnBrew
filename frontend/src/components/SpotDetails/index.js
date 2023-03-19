@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import "./SpotDetails.css";
 import Reviews from "../ReviewForm";
 import { getAllReviews, deleteReview } from "../../store/reviews";
+import ReviewModal from "../ReviewModal";
 
 const SpotDetails = () => {
     const { spotId } = useParams();
@@ -134,11 +135,13 @@ const SpotDetails = () => {
                             You've already left a review on this spot!
                         </div>
                     ) : (
-                        <button
-                            className="create-review-button"
-                            onClick={handleReviewClick}
-                            disabled={userHasReviewed !== undefined}
-                        > Post Your Review </button>
+                        <ReviewModal spotId={spotId} />
+
+                        // <button
+                        //     className="create-review-button"
+                        //     onClick={handleReviewClick}
+                        //     disabled={userHasReviewed !== undefined}
+                        // > Post Your Review </button>
                     )
                 )}
                 {userOwner && (

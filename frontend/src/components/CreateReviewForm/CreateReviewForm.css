@@ -23,7 +23,8 @@
 
 
 #review-header {
-    border-bottom: 1px grey solid;
+    display: flex;
+    justify-content: center;
 }
 
 #createReview-buttonDiv {
@@ -111,3 +112,26 @@ input:checked~label:hover~label,
 label:hover~.starInput:checked~label {
     color: red;
 }
+
+.review-type-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-textarea {
+    width: 80%;
+    height: 10em;
+}
+
+.star-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-message {
+    color: red;
+  }
