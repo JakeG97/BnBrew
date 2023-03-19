@@ -37,9 +37,12 @@ const SpotDetails = () => {
     const userOwner = user && user.id === spot?.ownerId;
   
     const reviewsArray = Object.values(reviews);
+
     let userHasReviewed = reviewsArray.find(
         (review) => review.spotId === spotId && review.userId === user?.id
     );
+
+    const reviewCount = reviewsArray.length;
 
     const handleReviewClick = () => {
         if (!userHasReviewed) {
@@ -53,97 +56,6 @@ const SpotDetails = () => {
         await dispatch(deleteReview(reviewId));
         userHasReviewed = undefined;
     };
-
-    let reviewCount;
-    let numReviews = spot?.numReviews
-
-    if (numReviews === 1) {
-        reviewCount = "review"
-    } else if (numReviews === 0) {
-        reviewCount = "New"
-        numReviews = ""
-    } else {
-        reviewCount = "reviews"
-    }
-
-    const noReviews = () => {
-        if (reviewCount === "New" && user) {
-            return (
-                <div>Be the first to post a review!</div>
-            )
-        }
-    }
-
-    const orderReviews = () => {
-        let { Reviews } = reviews;
-        Reviews?.sort((a, b) => {
-            const createdReview1 = new Date(a?.createdAt);
-            const createdReview2 = new Date(b?.createdAt)
-            if (createdReview1 < createdReview2) {
-                return 1
-            } else if (createdReview1 > createdReview2) {
-                return -1
-            } else {
-                return 0
-            }
-        })
-
-    if (reviews?.length === 0) {
-        return (
-        <div></div>
-        )
-    } else {
-        let spotName = spot.name;
-        return Reviews?.map((review) => {
-            let starsCount;
-            if (review?.stars === 1) {
-                starsCount =
-                <span>
-                    <i className="fa-sharp fa-solid fa-star" />
-                </span>
-            }
-            if (review?.stars === 2) {
-                starsCount =
-                <div>
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                </div>
-            }
-            if (review?.stars === 3) {
-                starsCount =
-                <div>
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                </div>
-            }
-            if (review?.stars === 4) {
-                starsCount =
-                <div>
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                </div>
-            }
-            if (review?.stars === 5) {
-                starsCount =
-                <div>
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                    <i className="fa-sharp fa-solid fa-star" />
-                </div>
-            }
-
-            let date = new Date(review.createdAt);
-
-
-        })
-    }
-
-    }
 
   
   return (
@@ -183,13 +95,24 @@ const SpotDetails = () => {
                         <span className="actual-price">${spot?.price}</span>
                     </div>
                     <div className="fa-sharp fa-solid fa-star">
-                        {" "}
-                        : {spot?.avgRating}
+                        {spot?.avgRating !== undefined && spot?.avgRating !== null && (
+                            <>
+                                {Number.parseFloat(spot?.avgRating).toFixed(1)}{" "}
+                                {reviewCount > 0 && (
+                                <>
+                                • {reviewCount} review{reviewCount === 1 ? '' : 's'}
+                                </>
+                           )}
+                                {reviewsArray.length === 0 && <div id="new"> New</div>}
+                            </>
+                        )}
+                        {spot?.avgRating === undefined && spot?.avgRating === null && (
+                            <>{" "}</>
+                        )}
                     </div>
                 </div>
                 {!user ? (
                     <div className="create-review-message">
-                        Please log in to leave a review!
                     </div>
                 ) : (
                     userHasReviewed ? (
@@ -250,6 +173,5 @@ const SpotDetails = () => {
         )}
     </div>
   );
-};
-
+}
 export default SpotDetails;

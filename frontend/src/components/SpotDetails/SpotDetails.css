@@ -70,7 +70,7 @@
 }
 
 .review-block{
-    width: 200px;
+    width: 300px;
     padding: 20px;
     margin-top: 15px;
     border-radius: 15px;
@@ -157,3 +157,16 @@
 .confirm-delete-buttons button:hover {
     opacity: 0.7;
 }
+
+.fa-sharp.fa-solid.fa-star {
+    width: 100%;
+  }
+
+#new{
+    font-weight: 200;
+}
+
+/* .fa-sharp.fa-solid.fa-star:before {
+    margin-left: 1em;
+  } */
+
