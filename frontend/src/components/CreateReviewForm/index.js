@@ -17,31 +17,34 @@ const CreateReviewForm = ({handleClose}) => {
     const [error, setError] = useState(null);
 
     const submitHandler = async (e) => {
-        e.preventDefault();
-
-        setFormSubmitted(true);
-
-        const reviewValid = review.length >= 10;
-        const starsValid = stars > 0;
-
-        setReviewValid(reviewValid);
-        setStarsValid(starsValid);
-
-        if (reviewValid && starsValid) {
-            const payload = {
-                review,
-                stars
-            }
-            let addedReview = await dispatch(createReview(payload, spotId))
-
-            if (addedReview) {
-                handleClose();
-                history.push(`/spots/${spotId}`)
-            } else {
-                setError('There was an error creating your review. Please try again.');
-            }
+      e.preventDefault();
+    
+      setFormSubmitted(true);
+    
+      const isReviewValid = review.length >= 10;
+      const isStarsValid = stars > 0;
+    
+      setReviewValid(isReviewValid);
+      setStarsValid(isStarsValid);
+    
+      if (isReviewValid && isStarsValid) {
+        const payload = {
+          review,
+          stars
+        };
+        let addedReview = await dispatch(createReview(payload, spotId));
+    
+        if (addedReview) {
+          handleClose();
+          history.push(`/spots/${spotId}`);
+        } else {
+          setError(
+            "There was an error creating your review. Please try again."
+          );
         }
+      }
     };
+    
 
     return (
         <div id="review-main-div">

@@ -133,4 +133,5 @@ label:hover~.starInput:checked~label {
 
 .error-message {
     color: red;
+    font-weight: 200;
   }

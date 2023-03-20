@@ -31,6 +31,10 @@
     margin: 1em;
 }
 
+#loginButton:hover{
+    cursor: pointer;
+}
+
 label {
     display: flex;
     flex-direction: column;
@@ -45,4 +49,8 @@ label {
     border-radius: 4px;
     color: white;
     margin: 1em;
+}
+
+#demoLoginButton:hover{
+    cursor: pointer;
 }
