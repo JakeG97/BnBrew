@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import "./SpotDetails.css";
 import Reviews from "../ReviewForm";
 import { getAllReviews, deleteReview } from "../../store/reviews";
+import ReviewModal from "../ReviewModal";
 
 const SpotDetails = () => {
     const { spotId } = useParams();
@@ -38,7 +39,7 @@ const SpotDetails = () => {
   
     const reviewsArray = Object.values(reviews);
 
-    let userHasReviewed = reviewsArray.find(
+    const userHasReviewed = reviewsArray.find(
         (review) => review.spotId === spotId && review.userId === user?.id
     );
 
@@ -52,14 +53,18 @@ const SpotDetails = () => {
         }
     };
 
-    const handleReviewDelete = async (reviewId) => {
+    let handleReviewDelete = async (reviewId) => {
         await dispatch(deleteReview(reviewId));
         userHasReviewed = undefined;
     };
 
+    const showReviewButton = user && !userOwner && !userHasReviewed;
+
   
   return (
+    <div className="content-co">
     <div key={spot} className="div-head">
+        {spot && (
         <div>
             <h1 className="spot-name">{spot?.name}</h1>
             <h4 className="city-state">
@@ -68,7 +73,7 @@ const SpotDetails = () => {
             </h4>
             <div className="image-container" key={spot?.id}>
             <div className="big-image-container">
-                    {spot.SpotImages && spot.SpotImages.length > 0 && (
+            {spot && spot.SpotImages?.length > 0 && (
                         <img id = "big-image" className="spot-image-0" src={spot.SpotImages[0].url} alt="brewery" />
                     )}
                 </div>
@@ -89,9 +94,10 @@ const SpotDetails = () => {
                 </div>
             </div>
         </div>
+        )}
         <div className="information-container">
             <div className="title-description-container">
-            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}</h4>
+            <h4 className="owner-name">Hosted by {spot?.Owner?.firstName}{" "}{spot?.Owner?.lastName}</h4>
                 <div className="spot-description">
                     {" "}
                     Description: {spot?.description}
@@ -112,77 +118,61 @@ const SpotDetails = () => {
                                     • {reviewCount} review{reviewCount === 1 ? '' : 's'}
                                     </>
                             )}
-                                    {reviewsArray.length === 0 && <div id="new"> New</div>}
+                                    {spot?.avgRating === 0 && <div id="new">New</div>}
                                 </>
                             )}
-                            {spot?.avgRating === undefined && spot?.avgRating === null && (
-                                <>{" "}</>
-                            )}
                         </div>
-                        <button className="reserve-button" onclick="alert('Feature Coming Soon...')">Reserve</button>
+                        <button className="reserve-button" onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                     </div>
                 </div>
-            </div>
+                </div>
                 {!user ? (
+                    <div className="create-review-message"></div>
+                    ) : userHasReviewed && !userHasReviewed.deleted ? (
                     <div className="create-review-message">
+                        You've already left a review on this spot!
                     </div>
-                ) : (
-                    userHasReviewed ? (
-                        <div className="create-review-message">
-                            You've already left a review on this spot!
-                        </div>
-                    ) : (
-                        <button
-                            className="create-review-button"
-                            onClick={handleReviewClick}
-                            disabled={userHasReviewed !== undefined}
-                        > Post Your Review </button>
-                    )
-                )}
-                {userOwner && (
-                    <div key={spot} className="delete-button-container">
-                        <button
-                            className="delete-button"
-                            onClick={(e) => handleDelete(e)}
-                        >
+                    ) : showReviewButton && !userHasReviewed?.deleted && (
+                        <ReviewModal spotId={spotId} userOwner={userOwner} />)}
+                    {userOwner && (
+                        <div key={spot} className="delete-button-container">
+                        <button className="delete-button" onClick={(e) => handleDelete(e)}>
                             Delete Your Spot
                         </button>
                         <NavLink to={`/spots/${spot.id}/edit`}>
-                            <button className="edit-btn">Edit Your Spot</button>
+                            <button className="edit-button">Edit Your Spot</button>
                         </NavLink>
+                        </div>
+                    )}
+                    <div className="review-area">
+                        {userHasReviewed ? (
+                        <Reviews
+                            reviews={reviewsArray.filter((review) => review.userId === user?.id)}
+                            handleReviewDelete={handleReviewDelete}
+                        />
+                        ) : (
+                        <Reviews reviews={reviewsArray} />
+                        )}
                     </div>
-                )}
+                    {confirmDelete && (
+                        <div className="confirm-delete">
+                        <div className="confirm-delete-content">
+                            <h2>Confirm Delete</h2>
+                            <p>Are you sure you want to remove this spot?</p>
+                            <div className="confirm-delete-buttons">
+                            <button className="confirm-delete-yes" onClick={confirmDeleteHandler}>
+                                Yes (Delete Spot)
+                            </button>
+                            <button className="confirm-delete-no" onClick={() => setConfirmDelete(false)}>
+                                No (keep spot)
+                            </button>
+                            </div>
+                        </div>
+                        </div>
+                    )}
             </div>
-            <div className="review-area">
-                {userHasReviewed ? (
-                    <Reviews
-                        reviews={reviewsArray.filter((review) => review.userId === user?.id)}
-                        handleReviewDelete={handleReviewDelete}
-                    />
-                ) : (
-                    <Reviews reviews={reviewsArray} />
-                )}
-            </div>
-        {confirmDelete && (
-            <div className="confirm-delete">
-                <div className="confirm-delete-content">
-                    <h2>Confirm Delete</h2>
-                    <p>Are you sure you want to remove this spot?</p>
-                    <div className="confirm-delete-buttons">
-                        <button className="confirm-delete-yes" onClick={confirmDeleteHandler}>
-                            Yes (Delete Spot)
-                        </button>
-                        <button
-                            className="confirm-delete-no"
-                            onClick={() => setConfirmDelete(false)}
-                        >
-                            No (keep spot)
-                        </button>
-                    </div>
-                </div>
-            </div>
-        )}
-    </div>
-  );
+        </div>
+        </div>
+    );
 }
 export default SpotDetails;

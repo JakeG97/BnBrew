@@ -39,6 +39,11 @@
     border: none;
     color: white;
     border-radius: 8px;
+    margin-left: 14em;
+}
+
+#edit-button:hover{
+    cursor: pointer;
 }
 
 .edit-errors{

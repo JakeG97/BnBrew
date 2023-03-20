@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 1em;
+    justify-content: center;
+    margin-left: 12em;
+    width: 1000px;
 }
 
 .spot-name{
@@ -20,7 +22,7 @@
 
 .image-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     width: 100%;
     height: 480px;
     overflow: hidden;
@@ -28,12 +30,12 @@
 }
 
 .big-image-container {
-    width: 520px;
-    height: 500px;
+    width: 480px;
+    height: 480px;
 }
 
 #big-image{
-    width: 560px;
+    width: 480px;
     height: 463.5px;
     object-fit: cover;
     border-top-left-radius: 15px;
@@ -45,7 +47,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-gap: 1em;
-    width: 40em;
+    width: 30em;
     margin-left: 1em;
 }
 
@@ -60,7 +62,7 @@
 .spot-image-3,
 .spot-image-2,
 .spot-image-1 {
-    width: 20em;
+    width: 240px;
     height: 13.5em;
     border-radius: 15px;
     flex-basis: 25%;
@@ -70,7 +72,7 @@
 .information-container{
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 1400px;
     /* justify-content: space-between; */
   
 }
@@ -78,11 +80,12 @@
 .review-block-container {
     /* display: inline-block; */
     width: 40%;
+    /* margin-left: 10em; */
   }
 
 .review-area{
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+  margin-top: 2rem;
 }
 
 .review-block{
@@ -104,7 +107,7 @@
 
 .title-description-container {
   /* display: inline-block; */
-  width: 60%;
+  width: 50%;
   height: 100%;
 }
 
@@ -115,7 +118,7 @@
     padding-bottom: 15px;
     margin-left: 4em;
     margin-top: 1em;
-    width: 45em;
+    width: 36em;
 }
 
 .owner-name{
@@ -184,11 +187,19 @@
     justify-content: flex-end;
   }
 
-#new{
-    font-weight: 200;
-}
+  /* .fa-sharp.fa-solid.fa-star::before {
+    width: 100%;
+    font-size: small;
+    display: flex;
+    justify-content: flex-end;
+  } */
 
-.review-block .reserve-button {
+  /* #new {
+    font-weight: 200;
+    background-color: red;
+  } */
+
+.reserve-button {
     margin-top: 1em;
     margin-left: 1em;
     width: 22em;
@@ -199,6 +210,10 @@
     border-radius: 8px;
     /* margin-top: 4em; */
   }
+
+.reserve-button:hover{
+    cursor: pointer;
+} 
 
 .create-review-button{
     margin-top: 1em;
@@ -215,7 +230,18 @@
     cursor: pointer;
 }
 
-/* .fa-sharp.fa-solid.fa-star:before {
-    margin-left: 1em;
+.delete-button-container{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin-left: 6em;
+}
+
+/* .content-container {
+    display: flex;
+    flex-wrap: wrap;
   } */
 
+.main-div{
+    margin-left: 4em;
+}

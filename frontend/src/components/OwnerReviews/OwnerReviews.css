@@ -1,0 +1,9 @@
+.owner-delete-button{
+    width: 100px;
+    height: 50px;
+    background-color: red;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    margin-top: 2em;
+}

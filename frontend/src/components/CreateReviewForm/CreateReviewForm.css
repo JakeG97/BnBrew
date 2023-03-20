@@ -18,12 +18,12 @@
     text-align: center;
     border-color: grey;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 16px 0px;
-
 }
 
 
 #review-header {
-    border-bottom: 1px grey solid;
+    display: flex;
+    justify-content: center;
 }
 
 #createReview-buttonDiv {
@@ -99,15 +99,38 @@
     content: "★";
 }
 
-.star-input:checked ~ label,
+.star-fill:checked ~ label,
 label:hover,
 label:hover~label {
     color: red;
 }
 
-.star-input:checked + label:hover,
+.star-fill:checked + label:hover,
 .starInput:checked~label:hover,
 input:checked~label:hover~label,
 label:hover~.starInput:checked~label {
     color: red;
 }
+
+.review-type-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-textarea {
+    width: 80%;
+    height: 10em;
+}
+
+.star-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-message {
+    color: red;
+  }

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getOwnerReviews, deleteReview } from "../../store/reviews";
+import "./OwnerReviews.css"
 
 
 export default function GetReviews() {
@@ -26,10 +27,10 @@ export default function GetReviews() {
                             <div className="actual-review">{review.review}</div>
                             <div id="stars" className="fas fa-solid fa-star">{review.stars}</div>
                             <div>
-                                <button className="delete-button" onClick={(e) => dispatch(deleteReview(review.id))}>Delete Your Review</button>
+                                <button className="owner-delete-button" onClick={(e) => dispatch(deleteReview(review.id))}>Delete Your Review</button>
                             </div>
                         </div>
-                    ))};
+                    ))}
                 </div>
             </div>
         </div>

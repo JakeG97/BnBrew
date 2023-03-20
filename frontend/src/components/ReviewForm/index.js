@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteReview } from "../../store/reviews";
@@ -14,6 +14,7 @@ export default function Reviews() {
   const spot = useSelector(state => state.spots[spotId])
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [reviewToDelete, setReviewToDelete] = useState(null);
+  const [showReviews, setShowReviews] = useState(false);
 
   const deleteHandler = async (reviewId) => {
     setReviewToDelete(reviewId);
@@ -34,18 +35,27 @@ export default function Reviews() {
   const orderReviews = () => {
     const reviewsArray = Object.values(reviews);
     reviewsArray.sort((a, b) => {
-      const createdReview1 = new Date(a?.createdAt);
-      const createdReview2 = new Date(b?.createdAt)
-      if (createdReview1 > createdReview2) {
-        return 1
+      const createdReview1 = Date.parse(a?.createdAt);
+      const createdReview2 = Date.parse(b?.createdAt);
+      if (isNaN(createdReview1) || isNaN(createdReview2)) {
+        return a.id - b.id;
       } else if (createdReview1 < createdReview2) {
-        return -1
+        return 1;
+      } else if (createdReview1 > createdReview2) {
+        return -1;
       } else {
-        return 0
+        return 0;
       }
     });
     return reviewsArray;
-  }
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowReviews(true);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   if (!reviews) {
     return null;
@@ -59,7 +69,7 @@ export default function Reviews() {
       {orderReviews().length === 0 && <div id="new"> New</div>}
       {orderReviews().length < 1 && <div id="no-review-text">Be the first to post a Review</div>}
       {orderReviews().map((review) => {
-      const reviewDate = new Date(review.createdAt);
+      const reviewDate = new Date(review?.createdAt);
       const monthYear = reviewDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
   
         return (
