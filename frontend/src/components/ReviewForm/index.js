@@ -62,12 +62,12 @@ export default function Reviews() {
   }
 
   return (
-    <div className="review-main-div">
+    <div className="main-div">
       <h3 id="title" className="fas fa-sold fa-star">{orderReviews().length > 0 ? Number.parseFloat(spot?.avgRating).toFixed(1) : ""}</h3>
       {orderReviews().length > 0 && " • "}
       {orderReviews().length > 0 && <span><span className="dot-separator"></span><span id="review-count">{orderReviews().length} {orderReviews().length === 1 ? 'review' : 'reviews'}</span></span>}
       {orderReviews().length === 0 && <div id="new"> New</div>}
-      {orderReviews().length < 1 && <div id="no-review-text">Be the first to post a review!</div>}
+      {orderReviews().length < 1 && <div id="no-review-text">Be the first to post a Review</div>}
       {orderReviews().map((review) => {
       const reviewDate = new Date(review?.createdAt);
       const monthYear = reviewDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });

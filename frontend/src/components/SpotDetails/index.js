@@ -39,7 +39,7 @@ const SpotDetails = () => {
   
     const reviewsArray = Object.values(reviews);
 
-    let userHasReviewed = reviewsArray.find(
+    const userHasReviewed = reviewsArray.find(
         (review) => review.spotId === spotId && review.userId === user?.id
     );
 
@@ -53,10 +53,12 @@ const SpotDetails = () => {
         }
     };
 
-    const handleReviewDelete = async (reviewId) => {
+    let handleReviewDelete = async (reviewId) => {
         await dispatch(deleteReview(reviewId));
         userHasReviewed = undefined;
     };
+
+    const showReviewButton = user && !userOwner && !userHasReviewed;
 
   
   return (
@@ -124,13 +126,14 @@ const SpotDetails = () => {
                     </div>
                 </div>
                 </div>
-                    {!user ? (
-                        <div className="create-review-message"></div>
-                    ) : userHasReviewed ? (
-                        <div className="create-review-message">
+                {!user ? (
+                    <div className="create-review-message"></div>
+                    ) : userHasReviewed && !userHasReviewed.deleted ? (
+                    <div className="create-review-message">
                         You've already left a review on this spot!
-                        </div>
-                    ) : !userOwner && <ReviewModal spotId={spotId} userOwner={userOwner} />}
+                    </div>
+                    ) : showReviewButton && !userHasReviewed?.deleted && (
+                        <ReviewModal spotId={spotId} userOwner={userOwner} />)}
                     {userOwner && (
                         <div key={spot} className="delete-button-container">
                         <button className="delete-button" onClick={(e) => handleDelete(e)}>
