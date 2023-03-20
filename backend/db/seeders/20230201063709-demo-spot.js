@@ -13,7 +13,6 @@ module.exports = {
     options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, [
       {
-      id: 1,
       ownerId: 1,
       address: "1280 N McDowell Blvd",
       city: "Petaluma",
@@ -25,7 +24,6 @@ module.exports = {
       description: "The Lagunitas Brewing Company, founded in 1993 in Lagunitas, California, is a subsidiary of Heineken International.",
       price: 8.00
     },{
-      id: 2,
       ownerId: 2,
       address: "37 Division Street",
       city: "Bend",
@@ -37,7 +35,6 @@ module.exports = {
       description: "No-nonsense neighborhood brewery offering a large assortment of craft beers to go.",
       price: 9.00
     },{
-      id: 3,
       ownerId: 3,
       address: "1805 Capitol Ave",
       city: "Berkley",
@@ -49,7 +46,6 @@ module.exports = {
       description: "Brewpub with a variety of seasonal house beer blends, in an industrial setting.",
       price: 12.00
     },{
-      id: 4,
       ownerId: 4,
       address: "1885 MacArthur DR",
       city: "Tracy",
@@ -61,7 +57,6 @@ module.exports = {
       description: "Morgan Territory Brewing is taking on the Wild West. Named after a historic ranch located on the “morning side” of Mount Diablo, Morgan Territory Brewing is dedicated to the rich, independent character of the early pioneers that made California great.",
       price: 6.00
   },{
-    id: 5,
     ownerId: 1,
     address: "322 Bellevue Ave",
     city: "Santa Rosa",
@@ -73,7 +68,6 @@ module.exports = {
     description: "HenHouse Brewing Company makes some of the best tasting beers that you can get and each and every one of them has a story to tell... literally, look on the side of the can!",
     price: 5.00
   },{
-    id: 6,
     ownerId: 2,
     address: "380 S Rock Blvd",
     city: "Sparks",
@@ -85,7 +79,6 @@ module.exports = {
     description: "Revision Brewing Company is a craft beer brewery and taproom located in a 30,500 sq. ft. building just off Interstate 80 in industrial Sparks, Nevada. Enjoy a range of available beer styles in your choice of atmosphere.",
     price: 6.00
   },{
-    id: 7,
     ownerId: 3,
     address: "220 S. Raymond Ave",
     city: "Pasadena",
@@ -97,7 +90,6 @@ module.exports = {
     description: "Stone Brewing Tap Room - Pasadena is a tasting room and retail store with patio space in the Del Mar Metro Station complex (formerly the historic Santa Fe train depot).",
     price: 10.00
   },{
-    id: 8,
     ownerId: 2,
     address: "725 4th Street",
     city: "Santa Rosa",

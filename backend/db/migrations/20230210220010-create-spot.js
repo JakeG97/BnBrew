@@ -15,6 +15,7 @@ module.exports = {
       },
       ownerId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Users',
         },
@@ -67,6 +68,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
+    options.tableName = "Spots"
     await queryInterface.dropTable("Spots");
   }
 };
