@@ -52,7 +52,7 @@ module.exports = {
       lat: 122.3024,
       lng: 37.8812,
       name: "Morgan Territory Brewing",
-      description: "Morgan Territory Brewing is taking on the Wild West. Named after a historic ranch located on the “morning side” of Mount Diablo, Morgan Territory Brewing is dedicated to the rich, independent character of the early pioneers that made California great. They are committed to producing bold and diverse, high-quality craft beers, and continuing their award-winning legacy.",
+      description: "Morgan Territory Brewing is taking on the Wild West. Named after a historic ranch located on the “morning side” of Mount Diablo, Morgan Territory Brewing is dedicated to the rich, independent character of the early pioneers that made California great.",
       price: 6.00
   },{
     ownerId: 1,
@@ -74,7 +74,7 @@ module.exports = {
     lat: 123.3024,
     lng: 34.8812,
     name: "Revision Brewing Company",
-    description: "Revision Brewing Company is a craft beer brewery and taproom located in a 30,500 sq. ft. building just off Interstate 80 in industrial Sparks, Nevada. Enjoy a range of available beer styles in your choice of atmosphere—our temperature-regulated taproom, or the warehouse side where you can play foosball, bag toss, giant Connect Four, and pool with the bustle of the brewery operations happening all around you. ",
+    description: "Revision Brewing Company is a craft beer brewery and taproom located in a 30,500 sq. ft. building just off Interstate 80 in industrial Sparks, Nevada. Enjoy a range of available beer styles in your choice of atmosphere.",
     price: 6.00
   },{
     ownerId: 3,
@@ -85,7 +85,7 @@ module.exports = {
     lat: 123.4024,
     lng: 34.5812,
     name: "Stone Brewing Tap Room",
-    description: "Stone Brewing Tap Room - Pasadena is a tasting room and retail store with patio space in the Del Mar Metro Station complex (formerly the historic Santa Fe train depot). This tap room is right next to the Los Angeles Metro Rail Gold Line in the heart of downtown Pasadena, within easy walking distance of Old Town Pasadena. Our unique tasting experience features numerous rotating taps of Stone Brewing beers, including year-round beers, special and one-time releases, and periodic archived vintages. Purchase growler fills of fresh Stone beer, kegs, bottles, and Stone Brewing merchandise and gifts, including t-shirts, hats, glassware, dog treats, and more.",
+    description: "Stone Brewing Tap Room - Pasadena is a tasting room and retail store with patio space in the Del Mar Metro Station complex (formerly the historic Santa Fe train depot).",
     price: 10.00
   },{
     ownerId: 2,
