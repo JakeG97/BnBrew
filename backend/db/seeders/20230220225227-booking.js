@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require("bcryptjs");
+const {Op} = require('sequelize');
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -33,7 +34,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = 'Bookings';
-    const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       id: { [Op.in]: [1, 2, 3] }
     }, {});
