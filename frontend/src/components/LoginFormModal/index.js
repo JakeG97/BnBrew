@@ -26,7 +26,7 @@ function LoginFormModal() {
 
   const handleDemoLogin = (e) => {
     e.preventDefault();
-    return dispatch(sessionActions.login({ credential: 'SlimJim', password: 'slimmy' }))
+    return dispatch(sessionActions.login({ credential: 'DemoUser', password: 'password' }))
       .then(closeModal)
       .catch(
         async (res) => {

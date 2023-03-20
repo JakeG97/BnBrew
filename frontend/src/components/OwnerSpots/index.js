@@ -65,7 +65,7 @@ const OwnerSpots = () => {
 
   return (
     <div className="owner-spots-div">
-      <h1 className="title">My Spots</h1>
+      <h1 className="title">Manage Spots</h1>
       <div className="blocks">{spotlist}</div>
       {confirmDelete && (
         <div className="confirm-delete">

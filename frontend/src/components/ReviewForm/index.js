@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { deleteReview } from "../../store/reviews";
@@ -14,7 +14,8 @@ export default function Reviews() {
   const spot = useSelector(state => state.spots[spotId])
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [reviewToDelete, setReviewToDelete] = useState(null);
-  const [showReviews, setShowReviews] = useState(false);
+
+  const userOwner = user && user.id === spot?.ownerId;
 
   const deleteHandler = async (reviewId) => {
     setReviewToDelete(reviewId);
@@ -50,43 +51,47 @@ export default function Reviews() {
     return reviewsArray;
   };
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowReviews(true);
-    }, 2000);
-    return () => clearTimeout(timeout);
-  }, []);
-
   if (!reviews) {
-    return null;
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="main-div">
-      <h3 id="title" className="fas fa-sold fa-star">{orderReviews().length > 0 ? Number.parseFloat(spot?.avgRating).toFixed(1) : ""}</h3>
+      <h3 id="title" className="fas fa-sold fa-star">
+        {orderReviews().length > 0 ? Number.parseFloat(spot?.avgRating).toFixed(1) : ""}
+      </h3>
       {orderReviews().length > 0 && " • "}
-      {orderReviews().length > 0 && <span><span className="dot-separator"></span><span id="review-count">{orderReviews().length} {orderReviews().length === 1 ? 'review' : 'reviews'}</span></span>}
+      {orderReviews().length > 0 && (
+        <span>
+          <span className="dot-separator"></span>
+          <span id="review-count">
+            {orderReviews().length} {orderReviews().length === 1 ? "Review" : "Reviews"}
+          </span>
+        </span>
+      )}
       {orderReviews().length === 0 && <div id="new"> New</div>}
-      {orderReviews().length < 1 && <div id="no-review-text">Be the first to post a Review</div>}
+      {orderReviews().length < 1 && !userOwner && <div id="no-review-text">Be the first to post a Review</div>}
       {orderReviews().map((review) => {
-      const reviewDate = new Date(review?.createdAt);
-      const monthYear = reviewDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        const reviewDate = new Date(review?.createdAt);
+        const monthYear = reviewDate.toLocaleString("en-US", { month: "long", year: "numeric" });
   
         return (
           <div className="star-block" key={review.id}>
             <div className="reviewer-name">{review.User?.firstName}</div>
             <div className="month-year">{monthYear}</div>
             <div className="actual-review">{review.review}</div>
-              <div id="star" className="fas fa-sold fa-star">
-                {review.stars}
-              </div>
-              <div>
-                {review.userId === user?.id && (
-                <button id='delete-review-button' onClick={() => deleteHandler(review.id)}>Delete review</button>
-                )}
-              </div>
+            <div id="star" className="fas fa-sold fa-star">
+              {review.stars}
+            </div>
+            <div>
+              {review.userId === user?.id && (
+                <button id="delete-review-button" onClick={() => deleteHandler(review.id)}>
+                  Delete review
+                </button>
+              )}
+            </div>
           </div>
-          );
+        );
       })}
       {confirmDelete && (
         <div className="confirm-delete">
@@ -97,10 +102,7 @@ export default function Reviews() {
               <button className="confirm-delete-yes" onClick={confirmDeleteHandler}>
                 Yes (Delete Review)
               </button>
-              <button
-                className="confirm-delete-no"
-                onClick={() => setConfirmDelete(false)}
-              >
+              <button className="confirm-delete-no" onClick={() => setConfirmDelete(false)}>
                 No (Keep Review)
               </button>
             </div>

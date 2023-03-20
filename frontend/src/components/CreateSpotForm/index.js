@@ -18,6 +18,10 @@ const CreateSpotForm = () => {
     const [price, setPrice] = useState("");
     const [state, setState] = useState("");
     const [image, setImage] = useState("");
+    const [image1, setImage1] = useState("");
+    const [image2, setImage2] = useState("");
+    const [image3, setImage3] = useState("");
+    const [image4, setImage4] = useState("");
     const [ValidationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -29,6 +33,11 @@ const CreateSpotForm = () => {
     const updatePrice = (e) => setPrice(e.target.value);
     const updateState = (e) => setState(e.target.value);
     const updateImage = (e) => setImage(e.target.value);
+    const updateImage1 = (e) => setImage1(e.target.value);
+    const updateImage2 = (e) => setImage2(e.target.value);
+    const updateImage3 = (e) => setImage3(e.target.value);
+    const updateImage4 = (e) => setImage4(e.target.value);
+    
     
     useEffect(() => {
 
@@ -64,6 +73,12 @@ const CreateSpotForm = () => {
   
       setHasSubmitted(true);
       if (ValidationErrors.length) return alert("Cannot Submit");
+
+      const imageUrls = [image];
+      if (image1) imageUrls.push(image1);
+      if (image2) imageUrls.push(image2);
+      if (image3) imageUrls.push(image3);
+      if (image4) imageUrls.push(image4);
   
       const payload = {
         ownerId,
@@ -189,6 +204,34 @@ const CreateSpotForm = () => {
                   placeholder="Preview Image URL"
                   value={image}
                   onChange={updateImage}
+                />
+                <input
+                  className="edit-input"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image1}
+                  onChange={updateImage1}
+                />
+                <input
+                  className="edit-input"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image2}
+                  onChange={updateImage2}
+                />
+                <input
+                  className="edit-input"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image3}
+                  onChange={updateImage3}
+                />
+                <input
+                  className="edit-input"
+                  type="text"
+                  placeholder="Image URL"
+                  value={image4}
+                  onChange={updateImage4}
                 />
               </div>
               {user && (
