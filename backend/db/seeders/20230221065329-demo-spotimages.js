@@ -23,6 +23,26 @@ module.exports = {
         spotId: 3,
         url: "https://dzz2p2kq5g45d.cloudfront.net/wp-content/uploads/2020/05/16113959/img-03.jpg",
         preview: true,
+      },{
+        spotId: 4,
+        url: "http://heritagesalvage.com/wp-content/uploads/2021/02/Heritage-Salvage-bar-and-brewery-morgan-territory-tracy-CA-3.jpg",
+        preview: true,
+      },{
+        spotId: 5,
+        url: "http://winecountry-media.s3.amazonaws.com/20822-media-SlideshowImage1-HenHouseBrewingCompany-Entrance-800x400.jpg",
+        preview: true,
+      },{
+        spotId: 6,
+        url: "https://revisionbrewing.com/wp-content/uploads/2019/12/Locations-Revision-Brewery.jpg",
+        preview: true,
+      },{
+        spotId: 7,
+        url: "https://www.stonebrewing.com/sites/default/files/imported/taproom_02.jpg",
+        preview: true,
+      },{
+        spotId: 8,
+        url: "https://s.hdnux.com/photos/77/76/13/16769749/12/rawImage.jpg",
+        preview: true,
       }
     ], options)
   },
