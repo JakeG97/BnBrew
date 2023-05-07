@@ -89,12 +89,12 @@ const CreateSpotForm = () => {
         name,
         price,
         state,
-        url: image,
+        url: imageUrls,
       };
   
       let addedSpot = await dispatch(addSpot(payload));
       if (addedSpot) {
-        dispatch(addSpotImages(addedSpot.id, image));
+        dispatch(addSpotImages(addedSpot.id, imageUrls));
         history.push(`/spots/${addedSpot.id}`);
       }
     };

@@ -156,20 +156,24 @@ export const getOwnerSpot = () => async (dispatch) => {
     }
 };
 
-export const addSpotImages = (spotId, url, preview) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json"},
-      body: JSON.stringify({
-        url,
-        preview,
-      }),
+export const addSpotImages = (spotId, urls) => async (dispatch) => {
+    const promises = urls.map(async (url) => {
+        const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({
+                url,
+            }),
+        });
+        if (res.ok) {
+            const imgData = await res.json();
+            return imgData;
+        }
     });
- if (res.ok) {
-    const imgData = await res.json();
-    dispatch(updateSpotImages(spotId, imgData));
-    return imgData;
-  }
+
+    const imgDataList = await Promise.all(promises);
+    dispatch(updateSpotImages(spotId, imgDataList));
+    return imgDataList;
 };
 
 

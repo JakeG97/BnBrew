@@ -72,9 +72,14 @@ export default function Reviews() {
       {orderReviews().length === 0 && <div id="new"> New</div>}
       {orderReviews().length < 1 && !userOwner && <div id="no-review-text">Be the first to post a Review</div>}
       {orderReviews().map((review) => {
-        const reviewDate = new Date(review?.createdAt);
-        const monthYear = reviewDate.toLocaleString("en-US", { month: "long", year: "numeric" });
-  
+        const reviewDate = Date.parse(review?.createdAt);
+        const monthYear = isNaN(reviewDate)
+          ? "" 
+          : new Date(reviewDate).toLocaleString("en-US", {
+              month: "long",
+              year: "numeric",
+            });
+
         return (
           <div className="star-block" key={review.id}>
             <div className="reviewer-name">{review.User?.firstName}</div>

@@ -36,7 +36,7 @@ const CreateReviewForm = ({handleClose}) => {
     
         if (addedReview) {
           handleClose();
-          history.push(`/spots/${spotId}`);
+          window.location.reload();
         } else {
           setError(
             "There was an error creating your review. Please try again."
