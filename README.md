@@ -31,3 +31,28 @@ To launch the applicaiton and get your brewery adventure started, just:
 
 ## Splash Page
 ![BnBrew](https://i.imgur.com/7C0ueL8.png)
+
+## Single Brewery Page
+<img width="1470" alt="Screen Shot 2023-05-10 at 10 36 14 PM" src="https://github.com/JakeG97/BnBrew/assets/113263279/be90fd51-9fe0-42f3-8fd6-1f3b54946c22">
+
+## Review List
+<img width="1469" alt="Screen Shot 2023-05-10 at 10 36 25 PM" src="https://github.com/JakeG97/BnBrew/assets/113263279/cda288db-1c79-489d-820d-8da31f80ee92">
+
+
+# Features
+
+## Spots
+<li>Users can create a Spot</li>
+<li>Users can read/view other Spot</li>
+<li>Users can update their Spot</li>
+<li>Users can delete their Spot</li>
+
+## Reviews
+<li>Users can create Reviews on Spots</li>
+<li>Users can read/view all of the Reviews on each Spot</li>
+<li>Users can delete their review on a Spot</li>
+
+## Future Features
+<li>Google Maps API</li>
+<li>AWS S3</li>
+<li>Booking Reservations</li>
